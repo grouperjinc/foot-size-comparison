@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/foot-size-comparison/static/css/main.ef60ad44.css",
-    "main.js": "/foot-size-comparison/static/js/main.3460e7ed.js",
+    "main.css": "/foot-size-comparison/static/css/main.63523767.css",
+    "main.js": "/foot-size-comparison/static/js/main.13767ad7.js",
     "static/js/453.46ab8caf.chunk.js": "/foot-size-comparison/static/js/453.46ab8caf.chunk.js",
     "index.html": "/foot-size-comparison/index.html",
-    "main.ef60ad44.css.map": "/foot-size-comparison/static/css/main.ef60ad44.css.map",
-    "main.3460e7ed.js.map": "/foot-size-comparison/static/js/main.3460e7ed.js.map",
+    "main.63523767.css.map": "/foot-size-comparison/static/css/main.63523767.css.map",
+    "main.13767ad7.js.map": "/foot-size-comparison/static/js/main.13767ad7.js.map",
     "453.46ab8caf.chunk.js.map": "/foot-size-comparison/static/js/453.46ab8caf.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ef60ad44.css",
-    "static/js/main.3460e7ed.js"
+    "static/css/main.63523767.css",
+    "static/js/main.13767ad7.js"
   ]
 }
