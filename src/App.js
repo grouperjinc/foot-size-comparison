@@ -6,33 +6,41 @@ function App() {
   const [matchingCelebrities, setMatchingCelebrities] = useState([]);
   const [searchName, setSearchName] = useState('');
   const [nameMatches, setNameMatches] = useState([]);
+  const [selectedCelebrity, setSelectedCelebrity] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   // Fetch celebrities by shoe size
   const findCelebritiesBySize = async () => {
-    if (!shoeSize) return;
+    if (!shoeSize) {
+      setErrorMessage('Please enter a shoe size.');
+      return;
+    }
+
+    setErrorMessage('');
 
     try {
+      console.log('Fetching celebrities for shoe size:', shoeSize);
       const response = await fetch(`http://localhost:5000/api/celebrities?shoeSize=${shoeSize}`);
       const data = await response.json();
 
       if (data.length === 0) {
         setErrorMessage('No celebrities found with this shoe size.');
+        setMatchingCelebrities([]);
       } else {
-        setErrorMessage('');
+        setMatchingCelebrities(data);
       }
 
-      setMatchingCelebrities(data);
+      setSelectedCelebrity(null); // Reset selected celebrity when filtering by shoe size
     } catch (error) {
       console.error('Error fetching matching celebrities:', error);
       setErrorMessage('An error occurred while fetching data.');
     }
   };
 
-  // Fetch partial name matches
+  // Fetch name matches as user types
   useEffect(() => {
-    if (!searchName) {
+    if (!searchName.trim()) {
       setNameMatches([]);
       setDropdownVisible(false);
       return;
@@ -42,8 +50,11 @@ function App() {
       try {
         const response = await fetch(`http://localhost:5000/api/search?name=${searchName}`);
         const data = await response.json();
+        
+        console.log("Fetched Matches:", data); // Debugging line
+
         setNameMatches(data);
-        setDropdownVisible(true); // Show dropdown when matches are found
+        setDropdownVisible(data.length > 0);
       } catch (error) {
         console.error('Error fetching name matches:', error);
       }
@@ -52,12 +63,27 @@ function App() {
     fetchMatches();
   }, [searchName]);
 
-  // Select a celebrity from the dropdown list
-  const selectCelebrity = (celeb) => {
-    setSearchName(celeb.name); // Set name in input field
-    setNameMatches([]); // Hide suggestions
-    setDropdownVisible(false); // Hide dropdown
-  };
+// Select celebrity from dropdown
+const selectCelebrity = async (celeb) => {
+  setSearchName('');  // 🔥 Clear the input field
+  setDropdownVisible(false);
+  setNameMatches([]);
+  setMatchingCelebrities([]);
+  setErrorMessage('');
+
+  try {
+    const response = await fetch(`http://localhost:5000/api/celebrities/${celeb._id}`);
+    if (!response.ok) throw new Error("Failed to fetch celebrity details");
+
+    const data = await response.json();
+    setSelectedCelebrity(data);
+  } catch (error) {
+    console.error('Error fetching celebrity details:', error);
+    setErrorMessage('Failed to fetch celebrity details.');
+  }
+};
+
+
 
   // Handle Enter key press for shoe size input
   const handleKeyPress = (e) => {
@@ -82,10 +108,10 @@ function App() {
         <button onClick={findCelebritiesBySize}>Find Matches</button>
       </div>
 
-      {/* Error Message */}
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {/* Error Message (only for shoe size search) */}
+      {errorMessage && shoeSize && <p className="error-message">{errorMessage}</p>}
 
-      {/* Display Matching Celebrities */}
+      {/* Display Matching Celebrities by Shoe Size */}
       {matchingCelebrities.length > 0 && (
         <div>
           <h2>Matching Celebrities</h2>
@@ -99,7 +125,7 @@ function App() {
 
       <hr />
 
-      {/* Search for Celebrity */}
+      {/* Search for Celebrity by Name */}
       <h2>Search for a Celebrity</h2>
       <div className="search-container" style={{ position: 'relative' }}>
         <input
@@ -108,28 +134,24 @@ function App() {
           value={searchName}
           onChange={(e) => setSearchName(e.target.value)}
         />
+
         {/* Suggestion Dropdown */}
-        {dropdownVisible && nameMatches.length > 0 && (
-          <ul
-            className="suggestion-dropdown"
-            style={{
-              position: 'absolute',
-              background: '#fff',
-              border: '1px solid #ccc',
-              padding: 0,
-              listStyle: 'none',
-              maxHeight: '150px',
-              overflowY: 'auto',
-              width: '100%',
-              zIndex: 10,
-            }}
-          >
+        {dropdownVisible && (
+          <ul className="suggestion-dropdown" style={{
+            position: 'absolute',
+            background: '#fff',
+            border: '1px solid #ccc',
+            padding: 0,
+            listStyle: 'none',
+            maxHeight: '150px',
+            overflowY: 'auto',
+            width: '100%',
+            zIndex: 10
+          }}>
             {nameMatches.map((match) => (
-              <li
-                key={match._id}
+              <li key={match._id}
                 style={{ padding: '5px', cursor: 'pointer' }}
-                onClick={() => selectCelebrity(match)}
-              >
+                onClick={() => selectCelebrity(match)}>
                 {match.name}
               </li>
             ))}
@@ -137,10 +159,19 @@ function App() {
         )}
       </div>
 
-      {/* Display Selected Celebrity */}
-      {searchName && !matchingCelebrities.length && (
-        <p>No results for "{searchName}". Please try a different search.</p>
+      {/* No Results Message */}
+      {searchName && !dropdownVisible && nameMatches.length === 0 && !selectedCelebrity && (
+        <p>No results for "{searchName}".<br /><br />Please try a different search.</p>
       )}
+
+      {/* Display Selected Celebrity */}
+      {selectedCelebrity && (
+        <div className="celebrity-details">          
+          <CelebrityCard celebrity={selectedCelebrity} />
+        </div>
+      )}
+
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 }

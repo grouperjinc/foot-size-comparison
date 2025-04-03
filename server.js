@@ -116,6 +116,39 @@ app.post('/api/celebrities/bulk', async (req, res) => {
   }
 });
 
+// Route 5: for fetching a celebrity's details by their ID
+app.get('/api/celebrities/:id', async (req, res) => {
+  try {
+    const { id } = req.params;  // Get the celebrity ID from the URL params
+    const celebrity = await Celebrity.findById(id);  // Find the celebrity by their ID
+    
+    if (!celebrity) {
+      return res.status(404).json({ message: 'Celebrity not found' });
+    }
+    
+    res.json(celebrity);  // Send back the celebrity details as JSON
+  } catch (error) {
+    console.error('Error fetching celebrity details:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Route 5: Fetch a single celebrity by ID
+app.get('/api/celebrities/:id', async (req, res) => {
+  try {
+    const celebrity = await Celebrity.findById(req.params.id);
+    
+    if (!celebrity) {
+      return res.status(404).json({ message: 'Celebrity not found' });
+    }
+
+    res.json(celebrity);
+  } catch (error) {
+    console.error('Error fetching celebrity by ID:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 // Connect to MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/footSizeComparison')
