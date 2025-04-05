@@ -16,13 +16,12 @@
     <!-- Add the base tag -->
     <base href="/foot-size-comparison/" />
 
-
     <!-- ✅ Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7122777258440810"
      crossorigin="anonymous"></script>
 
-    <!-- Link to external stylesheet -->
-    <link rel="stylesheet" href="/styles.css" />
+    <!-- These paths will be handled automatically during build -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/static/css/main.css" />
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -33,6 +32,9 @@
     </div>
 
     <!-- React app bundle scripts (handled by React) -->
+    <!-- These paths will be handled automatically during build -->
+    <script src="%PUBLIC_URL%/static/js/main.js"></script>
+    
     <div id="root"></div>
   </body>
 </html>
