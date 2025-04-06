@@ -20,8 +20,7 @@ function App() {
     setErrorMessage('');
 
     try {
-      console.log('Fetching celebrities for shoe size:', shoeSize);
-      const response = await fetch(`http://localhost:5000/api/celebrities?shoeSize=${shoeSize}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/celebrities?shoeSize=${shoeSize}`);
       const data = await response.json();
 
       if (data.length === 0) {
@@ -48,11 +47,9 @@ function App() {
 
     const fetchMatches = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/search?name=${searchName}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/search?name=${searchName}`);
         const data = await response.json();
         
-        console.log("Fetched Matches:", data); // Debugging line
-
         setNameMatches(data);
         setDropdownVisible(data.length > 0);
       } catch (error) {
@@ -63,27 +60,25 @@ function App() {
     fetchMatches();
   }, [searchName]);
 
-// Select celebrity from dropdown
-const selectCelebrity = async (celeb) => {
-  setSearchName('');  // 🔥 Clear the input field
-  setDropdownVisible(false);
-  setNameMatches([]);
-  setMatchingCelebrities([]);
-  setErrorMessage('');
+  // Select celebrity from dropdown
+  const selectCelebrity = async (celeb) => {
+    setSearchName('');  // 🔥 Clear the input field
+    setDropdownVisible(false);
+    setNameMatches([]);
+    setMatchingCelebrities([]);
+    setErrorMessage('');
 
-  try {
-    const response = await fetch(`http://localhost:5000/api/celebrities/${celeb._id}`);
-    if (!response.ok) throw new Error("Failed to fetch celebrity details");
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/celebrities/${celeb._id}`);
+      if (!response.ok) throw new Error("Failed to fetch celebrity details");
 
-    const data = await response.json();
-    setSelectedCelebrity(data);
-  } catch (error) {
-    console.error('Error fetching celebrity details:', error);
-    setErrorMessage('Failed to fetch celebrity details.');
-  }
-};
-
-
+      const data = await response.json();
+      setSelectedCelebrity(data);
+    } catch (error) {
+      console.error('Error fetching celebrity details:', error);
+      setErrorMessage('Failed to fetch celebrity details.');
+    }
+  };
 
   // Handle Enter key press for shoe size input
   const handleKeyPress = (e) => {
