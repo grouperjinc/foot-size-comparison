@@ -16,7 +16,8 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://grouperjinc.github.io/foot-size-comparison/",
+"homepage": "https://footsizecomparison.com",
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
