@@ -88,6 +88,8 @@ function App() {
   };
 
   return (
+   <div className="app-wrapper">
+ 
     <div className="App">
       <h1>Find Celebrities with Your US Shoe Size</h1>
 
@@ -167,6 +169,8 @@ function App() {
       )}
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
+    </div>
+
     </div>
   );
 }
