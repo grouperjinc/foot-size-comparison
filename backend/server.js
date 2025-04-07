@@ -1,8 +1,9 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const celebritiesRoutes = require('./routes/celebrities');
-require('dotenv').config(); // For loading environment variables
-const { MongoClient, ServerApiVersion } = require('mongodb');
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import bodyParser from 'body-parser';
+import celebritiesRoutes from './routes/celebrities.js';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
 // Replace with your MongoDB URI
 const uri = process.env.MONGO_URI;  // Ensure this is correctly set in .env
@@ -24,6 +25,11 @@ console.log('Mongo URI:', process.env.MONGO_URI);
 // Middlewares
 app.use(bodyParser.json()); // Parse incoming JSON data
 app.use('/api/celebrities', celebritiesRoutes); // Use celebrity routes
+
+// This is a simple route to check if the backend is working
+app.get('/', (req, res) => {
+    res.send('Backend is working!');
+  });
 
 // Connect to MongoDB and ping the server
 async function connectToDatabase() {
