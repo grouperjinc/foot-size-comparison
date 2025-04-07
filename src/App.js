@@ -88,89 +88,99 @@ function App() {
   };
 
   return (
-   <div className="app-wrapper">
- 
-    <div className="App">
-      <h1>Find Celebrities with Your US Shoe Size</h1>
+    <div className="app-wrapper">
+      <div className="App">
+        <h1>Find Celebrities with Your US Shoe Size</h1>
 
-      {/* Shoe Size Input */}
-      <div>
-        <input
-          type="number"
-          placeholder="Enter your shoe size"
-          value={shoeSize}
-          onChange={(e) => setShoeSize(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
-        <button onClick={findCelebritiesBySize}>Find Matches</button>
-      </div>
-
-      {/* Error Message (only for shoe size search) */}
-      {errorMessage && shoeSize && <p className="error-message">{errorMessage}</p>}
-
-      {/* Display Matching Celebrities by Shoe Size */}
-      {matchingCelebrities.length > 0 && (
+        {/* Shoe Size Input */}
         <div>
-          <h2>Matching Celebrities</h2>
-          <div className="celebrity-list">
-            {matchingCelebrities.map((celeb) => (
-              <CelebrityCard key={celeb._id} celebrity={celeb} />
-            ))}
+          <input
+            type="number"
+            placeholder="Enter your shoe size"
+            value={shoeSize}
+            onChange={(e) => setShoeSize(e.target.value)}
+            onKeyDown={handleKeyPress}
+          />
+          <button onClick={findCelebritiesBySize}>Find Matches</button>
+        </div>
+
+        {/* Error Message (only for shoe size search) */}
+        {errorMessage && shoeSize && <p className="error-message">{errorMessage}</p>}
+
+        {/* Display Matching Celebrities by Shoe Size */}
+        {matchingCelebrities.length > 0 && (
+          <div>
+            <h2>Matching Celebrities</h2>
+            <div className="celebrity-list">
+              {matchingCelebrities.map((celeb) => (
+                <CelebrityCard
+                  key={celeb._id}
+                  name={celeb.name}
+                  shoeSize={celeb.shoeSize}
+                  image={celeb.image}
+                  category={celeb.category}  // Pass the category prop here
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-
-      <hr />
-
-      {/* Search for Celebrity by Name */}
-      <h2>Search for a Celebrity</h2>
-      <div className="search-container" style={{ position: 'relative' }}>
-        <input
-          type="text"
-          placeholder="Type celebrity name..."
-          value={searchName}
-          onChange={(e) => setSearchName(e.target.value)}
-        />
-
-        {/* Suggestion Dropdown */}
-        {dropdownVisible && (
-          <ul className="suggestion-dropdown" style={{
-            position: 'absolute',
-            background: '#fff',
-            border: '1px solid #ccc',
-            padding: 0,
-            listStyle: 'none',
-            maxHeight: '150px',
-            overflowY: 'auto',
-            width: '100%',
-            zIndex: 10
-          }}>
-            {nameMatches.map((match) => (
-              <li key={match._id}
-                style={{ padding: '5px', cursor: 'pointer' }}
-                onClick={() => selectCelebrity(match)}>
-                {match.name}
-              </li>
-            ))}
-          </ul>
         )}
-      </div>
 
-      {/* No Results Message */}
-      {searchName && !dropdownVisible && nameMatches.length === 0 && !selectedCelebrity && (
-        <p>No results for "{searchName}".<br /><br />Please try a different search.</p>
-      )}
+        <hr />
 
-      {/* Display Selected Celebrity */}
-      {selectedCelebrity && (
-        <div className="celebrity-details">          
-          <CelebrityCard celebrity={selectedCelebrity} />
+        {/* Search for Celebrity by Name */}
+        <h2>Search for a Celebrity</h2>
+        <div className="search-container" style={{ position: 'relative' }}>
+          <input
+            type="text"
+            placeholder="Type celebrity name..."
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+          />
+
+          {/* Suggestion Dropdown */}
+          {dropdownVisible && (
+            <ul className="suggestion-dropdown" style={{
+              position: 'absolute',
+              background: '#fff',
+              border: '1px solid #ccc',
+              padding: 0,
+              listStyle: 'none',
+              maxHeight: '150px',
+              overflowY: 'auto',
+              width: '100%',
+              zIndex: 10
+            }}>
+              {nameMatches.map((match) => (
+                <li key={match._id}
+                  style={{ padding: '5px', cursor: 'pointer' }}
+                  onClick={() => selectCelebrity(match)}>
+                  {match.name}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
-      )}
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-    </div>
+        {/* No Results Message */}
+        {searchName && !dropdownVisible && nameMatches.length === 0 && !selectedCelebrity && (
+          <p>No results for "{searchName}".<br /><br />Please try a different search.</p>
+        )}
 
+        {/* Display Selected Celebrity */}
+        {selectedCelebrity && (
+          <div className="celebrity-details">          
+            <CelebrityCard
+              key={selectedCelebrity._id}
+              name={selectedCelebrity.name}
+              shoeSize={selectedCelebrity.shoeSize}
+              image={selectedCelebrity.image}
+              category={selectedCelebrity.category}  // Pass the category prop here
+            />
+          </div>
+        )}
+
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+      </div>
     </div>
   );
 }
