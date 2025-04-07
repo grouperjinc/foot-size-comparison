@@ -1,7 +1,7 @@
 // backend/routes/celebrities.js
-const express = require('express');
-const Celebrity = require('../models/Celebrity');
+import express from 'express';
 const router = express.Router();
+import Celebrity from '../models/Celebrity.js';
 
 // Add a new celebrity
 router.post('/add', async (req, res) => {
@@ -26,6 +26,6 @@ router.get('/', async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: 'Error fetching celebrities' });
   }
-});
+                                    });
 
-module.exports = router;
+export default router;
