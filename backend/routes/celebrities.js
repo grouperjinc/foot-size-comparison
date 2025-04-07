@@ -3,7 +3,7 @@ const express = require('express');
 const Celebrity = require('../models/Celebrity');
 const router = express.Router();
 
-// Add a new celebrity
+// Add a new celebrity .
 router.post('/add', async (req, res) => {
   const { name, shoeSize, footImage } = req.body;
   const celebrity = new Celebrity({ name, shoeSize, footImage });
