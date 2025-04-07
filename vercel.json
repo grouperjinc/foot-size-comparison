@@ -1,11 +1,18 @@
 {
     "builds": [
       {
-        "src": "backend/package.json",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "backend/build"
-        }
+        "src": "package.json",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "src/**/*",
+        "use": "@vercel/react"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/"
       }
     ]
   }
