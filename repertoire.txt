@@ -6,7 +6,9 @@ C:\First Class Data\Landing Page\Project F\foot-size-comparison\build
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\CNAME
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\index.html
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\package-lock.json
+C:\First Class Data\Landing Page\Project F\foot-size-comparison\package.json
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\public
+C:\First Class Data\Landing Page\Project F\foot-size-comparison\routes
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\src
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\vercel.json
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\backend\.env
@@ -14,6 +16,7 @@ C:\First Class Data\Landing Page\Project F\foot-size-comparison\backend\models
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\backend\package.json
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\backend\routes
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\backend\server.js
+C:\First Class Data\Landing Page\Project F\foot-size-comparison\backend\vercel.json
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\backend\models\Celebrity.js
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\backend\routes\celebrities.js
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\build\asset-manifest.json
@@ -25,6 +28,7 @@ C:\First Class Data\Landing Page\Project F\foot-size-comparison\public\index.htm
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\public\logo192.png
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\public\logo512.png
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\public\manifest.json
+C:\First Class Data\Landing Page\Project F\foot-size-comparison\routes\celebritiesRoutes.js
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\src\App.css
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\src\App.js
 C:\First Class Data\Landing Page\Project F\foot-size-comparison\src\components
