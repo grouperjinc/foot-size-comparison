@@ -1,9 +1,9 @@
 // backend/routes/celebrities.js
-const express = require('express');
-const Celebrity = require('../models/Celebrity');
+import express from 'express';
+import Celebrity from '../models/Celebrity.js'; // Note the `.js` extension!
 const router = express.Router();
 
-// Add a new celebrity .
+// Add a new celebrity
 router.post('/add', async (req, res) => {
   const { name, shoeSize, footImage } = req.body;
   const celebrity = new Celebrity({ name, shoeSize, footImage });
@@ -19,13 +19,15 @@ router.post('/add', async (req, res) => {
 // Get celebrities by shoe size
 router.get('/', async (req, res) => {
   const { shoeSize } = req.query;
-  
+
   try {
+    console.log("Shoe size requested:", shoeSize);
     const celebrities = await Celebrity.find({ shoeSize });
     res.json(celebrities);
   } catch (error) {
+    console.error("Error during celebrity fetch:", error);
     res.status(400).json({ error: 'Error fetching celebrities' });
   }
 });
 
-module.exports = router;
+export default router;

@@ -1,5 +1,5 @@
 // backend/models/Celebrity.js
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const celebritySchema = new mongoose.Schema({
   name: String,
@@ -8,5 +8,5 @@ const celebritySchema = new mongoose.Schema({
   category: String, // Actor, Athlete, Music, etc.
 });
 
-module.exports = mongoose.model('Celebrity', celebritySchema);
-
+const Celebrity = mongoose.model('Celebrity', celebritySchema);
+export default Celebrity;
