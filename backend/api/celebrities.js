@@ -33,5 +33,5 @@ export default async function handler(req, res) {
   } catch (err) {
     console.error('💥 Error in /api/celebrities:', err);
     res.status(500).json({ error: 'Internal Server Error' });
-  }
+  } 
 }
