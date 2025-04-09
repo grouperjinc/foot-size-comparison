@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
   try {
     // Connect to the database
     const database = client.db('celebrity-db'); // Replace with your actual database name
-    const collection = database.collection('Celebrity'); // Replace with your actual collection name
+    const collection = database.collection('celebrities'); // Replace with your actual collection name
     
     // Query the database to get all celebrities
     const celebrityList = await collection.find().toArray();
