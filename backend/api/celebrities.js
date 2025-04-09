@@ -1,5 +1,36 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import dbConnect from '../lib/dbConnect.js';
+
+export default async function handler(req, res) {
+  console.log("📡 Celebrities API called");
+
+  try {
+    await dbConnect(); // <-- this connects to MongoDB
+    console.log("✅ Connected to DB");
+
+    if (req.method === 'GET') {
+      const { shoeSize } = req.query;
+
+      const Celebrity = (await import('../models/Celebrity.js')).default;
+
+      if (shoeSize) {
+        const celebrities = await Celebrity.find({ shoeSize });
+        return res.status(200).json(celebrities);
+      } else {
+        const celebrities = await Celebrity.aggregate([{ $sample: { size: 10 } }]);
+        return res.status(200).json(celebrities);
+      }
+    }
+
+    res.setHeader('Allow', ['GET']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  } catch (err) {
+    console.error("❌ Error in handler:", err);
+    res.status(500).json({ error: 'Server error' });
+  }
+}
+
 
 dotenv.config();
 
