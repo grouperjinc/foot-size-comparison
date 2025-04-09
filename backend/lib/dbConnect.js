@@ -1,36 +1,23 @@
 // backend/lib/dbConnect.js
 import mongoose from 'mongoose';
 
-const MONGO_URI = process.env.MONGO_URI;
-
-if (!MONGO_URI) {
-  throw new Error("❌ MONGO_URI not defined in environment variables");
-}
-
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
+let isConnected = false;
 
 export default async function dbConnect() {
-  if (cached.conn) return cached.conn;
+  if (isConnected) {
+    console.log("✅ Using existing DB connection");
+    return;
+  }
 
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGO_URI, {
-      dbName: 'celebrity-db',
-      serverApi: {
-        version: '1',
-        strict: true,
-        deprecationErrors: true,
-      },
-    });
+  if (!process.env.MONGO_URI) {
+    throw new Error("❌ MONGO_URI is not defined in environment variables");
   }
 
   try {
-    cached.conn = await cached.promise;
-    console.log("✅ MongoDB connected");
-    return cached.conn;
+    const db = await mongoose.connect(process.env.MONGO_URI);
+    isConnected = db.connections[0].readyState === 1;
+
+    console.log("✅ Connected to MongoDB");
   } catch (err) {
     console.error("❌ MongoDB connection error:", err);
     throw err;
