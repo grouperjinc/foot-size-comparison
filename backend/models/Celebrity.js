@@ -8,5 +8,11 @@ const celebritySchema = new mongoose.Schema({
   category: String, // Actor, Athlete, Music, etc.
 });
 
+
+// what I am doing for serverless testing
+export default mongoose.models.Celebrity || mongoose.model('Celebrity', CelebritySchema);
+
+/* what I had before serverless
 const Celebrity = mongoose.model('Celebrity', celebritySchema);
 export default Celebrity;
+*/
