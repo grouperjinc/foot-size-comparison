@@ -22,12 +22,15 @@ function App() {
     setErrorMessage('');
     try {
       const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${shoeSize}`);
-      if (data.length === 0) {
+      console.log("✅ API response for shoe size:", data);
+
+      if (!Array.isArray(data) || data.length === 0) {
         setErrorMessage('No celebrities found with this shoe size.');
         setMatchingCelebrities([]);
       } else {
         setMatchingCelebrities(data);
       }
+
       setSelectedCelebrity(null);
     } catch (error) {
       console.error('Error fetching matching celebrities:', error);
@@ -95,7 +98,7 @@ function App() {
 
         {errorMessage && shoeSize && <p className="error-message">{errorMessage}</p>}
 
-        {matchingCelebrities.length > 0 && (
+        {Array.isArray(matchingCelebrities) && matchingCelebrities.length > 0 && (
           <div>
             <h2>Matching Celebrities</h2>
             <div className="celebrity-list">
