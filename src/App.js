@@ -22,9 +22,13 @@ function App() {
     setErrorMessage('');
     try {
       const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${shoeSize}`);
-      console.log("✅ API response for shoe size:", data);
+      console.log('%c✅ API response for shoe size:', 'color: green;', data);
 
-      if (!Array.isArray(data) || data.length === 0) {
+      if (!Array.isArray(data)) {
+        throw new Error("Unexpected data format received from API");
+      }
+
+      if (data.length === 0) {
         setErrorMessage('No celebrities found with this shoe size.');
         setMatchingCelebrities([]);
       } else {
@@ -33,8 +37,8 @@ function App() {
 
       setSelectedCelebrity(null);
     } catch (error) {
-      console.error('Error fetching matching celebrities:', error);
-      setErrorMessage('An error occurred while fetching data.');
+      console.error('❌ Error fetching matching celebrities:', error);
+      setErrorMessage('An error occurred while fetching data. Please try again.');
     }
   };
 
@@ -51,7 +55,7 @@ function App() {
         setNameMatches(data);
         setDropdownVisible(data.length > 0);
       } catch (error) {
-        console.error('Error fetching name matches:', error);
+        console.error('❌ Error fetching name matches:', error);
       }
     };
 
@@ -69,7 +73,7 @@ function App() {
       const { data } = await axios.get(`${API_BASE_URL}/api/celebrities/${celeb._id}`);
       setSelectedCelebrity(data);
     } catch (error) {
-      console.error('Error fetching celebrity details:', error);
+      console.error('❌ Error fetching celebrity details:', error);
       setErrorMessage('Failed to fetch celebrity details.');
     }
   };
@@ -85,6 +89,7 @@ function App() {
       <div className="App">
         <h1>Find Celebrities with Your US Shoe Size</h1>
 
+        {/* Shoe Size Input */}
         <div>
           <input
             type="number"
@@ -96,7 +101,7 @@ function App() {
           <button onClick={findCelebritiesBySize}>Find Matches</button>
         </div>
 
-        {errorMessage && shoeSize && <p className="error-message">{errorMessage}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         {Array.isArray(matchingCelebrities) && matchingCelebrities.length > 0 && (
           <div>
@@ -125,6 +130,7 @@ function App() {
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
           />
+
           {dropdownVisible && (
             <ul className="suggestion-dropdown" style={{
               position: 'absolute',
@@ -163,8 +169,6 @@ function App() {
             />
           </div>
         )}
-
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </div>
     </div>
   );
