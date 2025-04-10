@@ -22,7 +22,7 @@ function App() {
     setErrorMessage('');
     try {
       const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${shoeSize}`);
-      console.log('%c✅ API response for shoe size:', 'color: green;', data);
+      console.log("✅ API response for shoe size:", data);
 
       if (!Array.isArray(data)) {
         throw new Error("Unexpected data format received from API");
@@ -39,6 +39,7 @@ function App() {
     } catch (error) {
       console.error('❌ Error fetching matching celebrities:', error);
       setErrorMessage('An error occurred while fetching data. Please try again.');
+      setMatchingCelebrities([]);
     }
   };
 
@@ -52,10 +53,18 @@ function App() {
     const fetchMatches = async () => {
       try {
         const { data } = await axios.get(`${API_BASE_URL}/api/search?name=${searchName}`);
+
+        if (!Array.isArray(data)) {
+          console.warn("Unexpected data format in name search:", data);
+          setNameMatches([]);
+          return;
+        }
+
         setNameMatches(data);
         setDropdownVisible(data.length > 0);
       } catch (error) {
-        console.error('❌ Error fetching name matches:', error);
+        console.error('Error fetching name matches:', error);
+        setNameMatches([]);
       }
     };
 
@@ -73,7 +82,7 @@ function App() {
       const { data } = await axios.get(`${API_BASE_URL}/api/celebrities/${celeb._id}`);
       setSelectedCelebrity(data);
     } catch (error) {
-      console.error('❌ Error fetching celebrity details:', error);
+      console.error('Error fetching celebrity details:', error);
       setErrorMessage('Failed to fetch celebrity details.');
     }
   };
@@ -89,7 +98,6 @@ function App() {
       <div className="App">
         <h1>Find Celebrities with Your US Shoe Size</h1>
 
-        {/* Shoe Size Input */}
         <div>
           <input
             type="number"
@@ -130,8 +138,7 @@ function App() {
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
           />
-
-          {dropdownVisible && (
+          {dropdownVisible && Array.isArray(nameMatches) && (
             <ul className="suggestion-dropdown" style={{
               position: 'absolute',
               background: '#fff',
