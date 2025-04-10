@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import CelebrityCard from './components/CelebrityCard';
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
-  // Fetch celebrities by shoe size
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
   const findCelebritiesBySize = async () => {
     if (!shoeSize) {
       setErrorMessage('Please enter a shoe size.');
@@ -18,26 +20,21 @@ function App() {
     }
 
     setErrorMessage('');
-
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/celebrities?shoeSize=${shoeSize}`);
-      const data = await response.json();
-
+      const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${shoeSize}`);
       if (data.length === 0) {
         setErrorMessage('No celebrities found with this shoe size.');
         setMatchingCelebrities([]);
       } else {
         setMatchingCelebrities(data);
       }
-
-      setSelectedCelebrity(null); // Reset selected celebrity when filtering by shoe size
+      setSelectedCelebrity(null);
     } catch (error) {
       console.error('Error fetching matching celebrities:', error);
       setErrorMessage('An error occurred while fetching data.');
     }
   };
 
-  // Fetch name matches as user types
   useEffect(() => {
     if (!searchName.trim()) {
       setNameMatches([]);
@@ -47,9 +44,7 @@ function App() {
 
     const fetchMatches = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/search?name=${searchName}`);
-        const data = await response.json();
-        
+        const { data } = await axios.get(`${API_BASE_URL}/api/search?name=${searchName}`);
         setNameMatches(data);
         setDropdownVisible(data.length > 0);
       } catch (error) {
@@ -60,19 +55,15 @@ function App() {
     fetchMatches();
   }, [searchName]);
 
-  // Select celebrity from dropdown
   const selectCelebrity = async (celeb) => {
-    setSearchName('');  // 🔥 Clear the input field
+    setSearchName('');
     setDropdownVisible(false);
     setNameMatches([]);
     setMatchingCelebrities([]);
     setErrorMessage('');
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/celebrities/${celeb._id}`);
-      if (!response.ok) throw new Error("Failed to fetch celebrity details");
-
-      const data = await response.json();
+      const { data } = await axios.get(`${API_BASE_URL}/api/celebrities/${celeb._id}`);
       setSelectedCelebrity(data);
     } catch (error) {
       console.error('Error fetching celebrity details:', error);
@@ -80,7 +71,6 @@ function App() {
     }
   };
 
-  // Handle Enter key press for shoe size input
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       findCelebritiesBySize();
@@ -92,7 +82,6 @@ function App() {
       <div className="App">
         <h1>Find Celebrities with Your US Shoe Size</h1>
 
-        {/* Shoe Size Input */}
         <div>
           <input
             type="number"
@@ -104,10 +93,8 @@ function App() {
           <button onClick={findCelebritiesBySize}>Find Matches</button>
         </div>
 
-        {/* Error Message (only for shoe size search) */}
         {errorMessage && shoeSize && <p className="error-message">{errorMessage}</p>}
 
-        {/* Display Matching Celebrities by Shoe Size */}
         {matchingCelebrities.length > 0 && (
           <div>
             <h2>Matching Celebrities</h2>
@@ -118,7 +105,7 @@ function App() {
                   name={celeb.name}
                   shoeSize={celeb.shoeSize}
                   image={celeb.image}
-                  category={celeb.category}  // Pass the category prop here
+                  category={celeb.category}
                 />
               ))}
             </div>
@@ -127,7 +114,6 @@ function App() {
 
         <hr />
 
-        {/* Search for Celebrity by Name */}
         <h2>Search for a Celebrity</h2>
         <div className="search-container" style={{ position: 'relative' }}>
           <input
@@ -136,8 +122,6 @@ function App() {
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
           />
-
-          {/* Suggestion Dropdown */}
           {dropdownVisible && (
             <ul className="suggestion-dropdown" style={{
               position: 'absolute',
@@ -152,8 +136,8 @@ function App() {
             }}>
               {nameMatches.map((match) => (
                 <li key={match._id}
-                  style={{ padding: '5px', cursor: 'pointer' }}
-                  onClick={() => selectCelebrity(match)}>
+                    style={{ padding: '5px', cursor: 'pointer' }}
+                    onClick={() => selectCelebrity(match)}>
                   {match.name}
                 </li>
               ))}
@@ -161,20 +145,18 @@ function App() {
           )}
         </div>
 
-        {/* No Results Message */}
         {searchName && !dropdownVisible && nameMatches.length === 0 && !selectedCelebrity && (
           <p>No results for "{searchName}".<br /><br />Please try a different search.</p>
         )}
 
-        {/* Display Selected Celebrity */}
         {selectedCelebrity && (
-          <div className="celebrity-details">          
+          <div className="celebrity-details">
             <CelebrityCard
               key={selectedCelebrity._id}
               name={selectedCelebrity.name}
               shoeSize={selectedCelebrity.shoeSize}
               image={selectedCelebrity.image}
-              category={selectedCelebrity.category}  // Pass the category prop here
+              category={selectedCelebrity.category}
             />
           </div>
         )}
