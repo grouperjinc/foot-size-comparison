@@ -24,7 +24,8 @@ export default async function handler(req, res) {
       const { shoeSize } = req.query;
 
       if (shoeSize) {
-        const results = await Celebrity.find({ shoeSize });
+        const size = parseInt(shoeSize, 10);
+        const results = await Celebrity.find({ shoeSize: size });
         return res.status(200).json(results);
       }
 
