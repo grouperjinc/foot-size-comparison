@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CelebrityCard from './components/CelebrityCard';
+import './App.css';
 
 function App() {
   const [shoeSize, setShoeSize] = useState('');
@@ -12,9 +13,8 @@ function App() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
-  console.log("🔍 API_BASE_URL:", API_BASE_URL);
 
-
+  // Fetch celebrities by shoe size
   const findCelebritiesBySize = async () => {
     if (!shoeSize) {
       setErrorMessage('Please enter a shoe size.');
@@ -24,8 +24,6 @@ function App() {
     setErrorMessage('');
     try {
       const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${shoeSize}`);
-      console.log("✅ API response for shoe size:", data);
-
       if (!Array.isArray(data)) {
         throw new Error("Unexpected data format received from API");
       }
@@ -36,15 +34,15 @@ function App() {
       } else {
         setMatchingCelebrities(data);
       }
-
       setSelectedCelebrity(null);
     } catch (error) {
-      console.error('❌ Error fetching matching celebrities:', error);
+      console.error('Error fetching matching celebrities:', error);
       setErrorMessage('An error occurred while fetching data. Please try again.');
       setMatchingCelebrities([]);
     }
   };
 
+  // Search for celebrity by name
   useEffect(() => {
     if (!searchName.trim()) {
       setNameMatches([]);
@@ -55,7 +53,6 @@ function App() {
     const fetchMatches = async () => {
       try {
         const { data } = await axios.get(`${API_BASE_URL}/api/search?name=${searchName}`);
-
         if (!Array.isArray(data)) {
           console.warn("Unexpected data format in name search:", data);
           setNameMatches([]);
@@ -73,6 +70,7 @@ function App() {
     fetchMatches();
   }, [searchName]);
 
+  // Select a celebrity from the dropdown
   const selectCelebrity = async (celeb) => {
     setSearchName('');
     setDropdownVisible(false);
@@ -89,6 +87,7 @@ function App() {
     }
   };
 
+  // Handle "Enter" key for shoe size search
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       findCelebritiesBySize();
@@ -98,8 +97,14 @@ function App() {
   return (
     <div className="app-wrapper">
       <div className="App">
-        <h1>Find Celebrities with Your US Shoe Size</h1>
+        {/* Hero Section at the top */}
+        <div className="hero-section">
+          <h1>Welcome to the Celebrity Foot Size Comparison</h1>
+          <p>Discover which celebrities wear the same shoe size as you!</p>
+          <button onClick={() => { /* Action for button */ }}>Get Started</button>
+        </div>
 
+        {/* Main Content */}
         <div>
           <input
             type="number"
@@ -122,8 +127,8 @@ function App() {
                   key={celeb._id}
                   name={celeb.name}
                   shoeSize={celeb.shoeSize}
-                  image={celeb.image}
                   category={celeb.category}
+                  // Removed image prop since we're not showing images anymore
                 />
               ))}
             </div>
@@ -153,9 +158,7 @@ function App() {
               zIndex: 10
             }}>
               {nameMatches.map((match) => (
-                <li key={match._id}
-                    style={{ padding: '5px', cursor: 'pointer' }}
-                    onClick={() => selectCelebrity(match)}>
+                <li key={match._id} style={{ padding: '5px', cursor: 'pointer' }} onClick={() => selectCelebrity(match)}>
                   {match.name}
                 </li>
               ))}
@@ -173,8 +176,8 @@ function App() {
               key={selectedCelebrity._id}
               name={selectedCelebrity.name}
               shoeSize={selectedCelebrity.shoeSize}
-              image={selectedCelebrity.image}
               category={selectedCelebrity.category}
+              // No image prop here either
             />
           </div>
         )}

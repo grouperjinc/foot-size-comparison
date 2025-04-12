@@ -1,34 +1,51 @@
 /* CelebrityCard.css */
 .celebrity-card {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  margin: 10px;
-  width: 200px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
+  width: 250px;
+  height: auto;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.celebrity-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .celebrity-name {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
 }
 
-.celebrity-shoe-size {
+.celebrity-shoe-size, .celebrity-category {
+  font-size: 14px;
   color: #555;
+  margin: 5px 0;
 }
 
-p {
-  color: red;
-  font-weight: bold;
-  z-index: 10; /* Ensures visibility above other content */
+.celebrity-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
-/* Adjust the image size */
-.celebrity-image {
-  width: 100px; /* Set a fixed width for the image */
-  height: 100px; /* Set a fixed height for the image */
-  border-radius: 50%; /* Make the image round */
-  margin-top: 10px;
-  object-fit: cover; /* Ensures the image covers the area, preserving aspect ratio */
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+  .celebrity-card {
+    width: 90%;
+  }
+
+  .celebrity-card-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
