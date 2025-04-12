@@ -1,32 +1,34 @@
 /* CelebrityCard.css */
 .celebrity-card {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin: 10px;
-    width: 200px;
-    text-align: center;
-  }
-  
-  .celebrity-name {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .celebrity-shoe-size {
-    color: #555;
-  }
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 10px;
+  width: 200px;
+  text-align: center;
+}
 
-  p {
-    color: red;
-    font-weight: bold;
-    z-index: 10; /* Ensures visibility above other content */
-  }
-  
-  .celebrity-image {
-    max-width: 100%;
-    border-radius: 50%;
-    margin-top: 10px;
-  }
-  
+.celebrity-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.celebrity-shoe-size {
+  color: #555;
+}
+
+p {
+  color: red;
+  font-weight: bold;
+  z-index: 10; /* Ensures visibility above other content */
+}
+
+/* Adjust the image size */
+.celebrity-image {
+  width: 100px; /* Set a fixed width for the image */
+  height: 100px; /* Set a fixed height for the image */
+  border-radius: 50%; /* Make the image round */
+  margin-top: 10px;
+  object-fit: cover; /* Ensures the image covers the area, preserving aspect ratio */
+}
