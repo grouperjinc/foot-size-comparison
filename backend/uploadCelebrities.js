@@ -31,7 +31,7 @@ const uploadCelebrities = () => {
           const existingCelebrity = await Celebrity.findOne({ name: celebrity.name });
 
           // Check if the image URL is missing or empty and set the placeholder if so
-          let imageUrl = celebrity.image || 'https://res.cloudinary.com/dlratz7ov/image/upload/v1744428483/placeholder_px9a1k.png'; // Use placeholder URL
+          let imageUrl = celebrity.image || 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg'; // Use placeholder URL
 
           if (!celebrity.image) {
             console.log(`No image found for ${celebrity.name}, using placeholder.`);
