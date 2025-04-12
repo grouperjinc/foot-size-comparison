@@ -5,8 +5,8 @@ const router = express.Router();
 
 // Add a new celebrity
 router.post('/add', async (req, res) => {
-  const { name, shoeSize, footImage } = req.body;
-  const celebrity = new Celebrity({ name, shoeSize, footImage });
+  const { name, shoeSize, category } = req.body; // Removed 'footImage'
+  const celebrity = new Celebrity({ name, shoeSize, category }); // Removed 'footImage'
 
   try {
     await celebrity.save();
@@ -22,7 +22,8 @@ router.get('/', async (req, res) => {
 
   try {
     console.log("Shoe size requested:", shoeSize);
-    const celebrities = await Celebrity.find({ shoeSize });
+    // Fetch celebrities without the 'footImage' field
+    const celebrities = await Celebrity.find({ shoeSize }).select('-image'); // Exclude the image field
     res.json(celebrities);
   } catch (error) {
     console.error("Error during celebrity fetch:", error);
