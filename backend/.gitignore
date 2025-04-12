@@ -12,3 +12,6 @@ npm-debug.log*
 
 # misc
 .DS_Store
+
+# Ignore the celebrities.csv file
+celebrities.csv
