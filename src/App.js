@@ -11,8 +11,17 @@ function App() {
   const [selectedCelebrity, setSelectedCelebrity] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [cookieConsent, setCookieConsent] = useState(false); // State for cookie consent
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
+
+  // Check if user already accepted cookies
+  useEffect(() => {
+    const consent = localStorage.getItem('cookieConsent');
+    if (consent) {
+      setCookieConsent(true);
+    }
+  }, []);
 
   // Fetch celebrities by shoe size
   const findCelebritiesBySize = async () => {
@@ -94,14 +103,19 @@ function App() {
     }
   };
 
+  // Accept cookies and store the consent in localStorage
+  const acceptCookies = () => {
+    localStorage.setItem('cookieConsent', true);
+    setCookieConsent(true); // Update state to hide the cookie consent banner
+  };
+
   return (
     <div className="app-wrapper">
       <div className="App">
-        {/* Hero Section at the top */}
+        {/* Hero Section */}
         <div className="hero-section">
           <h1>Welcome to the Celebrity Foot Size Comparison</h1>
           <p>Discover which celebrities wear the same shoe size as you!</p>
-          <button onClick={() => { /* Action for button */ }}>Get Started</button>
         </div>
 
         {/* Main Content */}
@@ -128,7 +142,6 @@ function App() {
                   name={celeb.name}
                   shoeSize={celeb.shoeSize}
                   category={celeb.category}
-                  // Removed image prop since we're not showing images anymore
                 />
               ))}
             </div>
@@ -177,8 +190,15 @@ function App() {
               name={selectedCelebrity.name}
               shoeSize={selectedCelebrity.shoeSize}
               category={selectedCelebrity.category}
-              // No image prop here either
             />
+          </div>
+        )}
+
+        {/* Cookie Consent Banner */}
+        {!cookieConsent && (
+          <div id="cookie-consent" className="cookie-consent">
+            <p>We use cookies to enhance your browsing experience. By continuing to use this website, you consent to our use of cookies.</p>
+            <button onClick={acceptCookies}>Got it!</button>
           </div>
         )}
       </div>
