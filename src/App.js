@@ -32,6 +32,10 @@ function App() {
 
     setErrorMessage('');
     try {
+      // Use parseFloat to ensure that the size is treated as a number
+      const size = parseFloat(shoeSize);
+
+      // If the shoe size is a decimal, find celebrities with the exact match
       const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${shoeSize}`);
       if (!Array.isArray(data)) {
         throw new Error("Unexpected data format received from API");
