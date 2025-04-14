@@ -3,10 +3,11 @@ import mongoose from 'mongoose';
 
 const celebritySchema = new mongoose.Schema({
   name: String,
-  shoeSize: Number,
+  shoeSize: { type: Number, index: true }, // Index on shoeSize for faster queries
   category: String,
-  // Removed 'image' or 'footImage' field
+  image: String
 });
+
 
 const Celebrity = mongoose.model('Celebrity', celebritySchema);
 

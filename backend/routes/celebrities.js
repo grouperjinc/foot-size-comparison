@@ -21,9 +21,22 @@ router.get('/', async (req, res) => {
   const { shoeSize } = req.query;
 
   try {
+    // Ensure shoeSize is a float value
+    const size = parseFloat(shoeSize);
+
+    if (isNaN(size)) {
+      return res.status(400).json({ error: 'Invalid shoe size' });
+    }
+
+    // Query for celebrities with shoe sizes within a ±0.5 range
+    const celebrities = await Celebrity.find({
+      shoeSize: {
+        $gte: size - 0.5,  // Allow up to 0.5 smaller
+        $lte: size + 0.5   // Allow up to 0.5 larger
+      }
+    }).select('-image'); // Exclude the image field to prevent unnecessary data
+
     console.log("Shoe size requested:", shoeSize);
-    // Fetch celebrities without the 'footImage' field
-    const celebrities = await Celebrity.find({ shoeSize }).select('-image'); // Exclude the image field
     res.json(celebrities);
   } catch (error) {
     console.error("Error during celebrity fetch:", error);
