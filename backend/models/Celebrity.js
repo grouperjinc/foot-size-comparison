@@ -4,8 +4,7 @@ import mongoose from 'mongoose';
 const celebritySchema = new mongoose.Schema({
   name: String,
   shoeSize: { type: Number, index: true }, // Index on shoeSize for faster queries
-  category: String,
-  image: String
+  category: String
 });
 
 
