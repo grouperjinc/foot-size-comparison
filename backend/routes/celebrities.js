@@ -10,8 +10,10 @@ router.get('/', async (req, res) => {
   try {
     // Ensure shoeSize is a float value
     const size = parseFloat(shoeSize);  // Convert to float for range calculation
+    console.log(`Received shoe size: ${shoeSize}, parsed as: ${size}`); // Log the received shoe size
 
     if (isNaN(size)) {
+      console.error('Invalid shoe size:', shoeSize);
       return res.status(400).json({ error: 'Invalid shoe size' });
     }
 
@@ -19,18 +21,19 @@ router.get('/', async (req, res) => {
     const minSize = Decimal128.fromString((size - 0.5).toString());
     const maxSize = Decimal128.fromString((size + 0.5).toString());
 
-    // Log the query range to see the values
-    console.log("Querying for shoe sizes between:", minSize.toString(), "and", maxSize.toString());
+    // Log the query range
+    console.log(`Querying for shoe sizes between: ${minSize.toString()} and ${maxSize.toString()}`);
 
     // Query for celebrities with shoe sizes within ±0.5 range
     const celebrities = await Celebrity.find({
       shoeSize: {
-        $gte: minSize,  // Allow up to 0.5 smaller
-        $lte: maxSize   // Allow up to 0.5 larger
+        $gte: minSize,
+        $lte: maxSize
       }
-    }).select('-image'); // Exclude the image field
+    }).select('-image');  // Exclude the image field
 
-    console.log("Shoe size requested:", shoeSize);
+    console.log("Found celebrities:", celebrities); // Log the result
+
     res.json(celebrities);
   } catch (error) {
     console.error("Error during celebrity fetch:", error);
