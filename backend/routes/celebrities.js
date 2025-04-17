@@ -1,6 +1,6 @@
 import express from 'express';
-import Celebrity from '../models/Celebrity.js'; // Import the Celebrity model
-import { Decimal128 } from 'mongodb'; // Import Decimal128 for precision handling
+import Celebrity from '../models/Celebrity.js';
+import { Decimal128 } from 'mongodb';
 const router = express.Router();
 
 // Get celebrities by shoe size
@@ -8,8 +8,7 @@ router.get('/', async (req, res) => {
   const { shoeSize } = req.query;
 
   try {
-    // Ensure shoeSize is a float value
-    const size = parseFloat(shoeSize);  // Convert to float for range calculation
+    const size = parseFloat(shoeSize); // Convert to float for range calculation
     console.log(`Received shoe size: ${shoeSize}, parsed as: ${size}`); // Log the received shoe size
 
     if (isNaN(size)) {
@@ -17,11 +16,10 @@ router.get('/', async (req, res) => {
       return res.status(400).json({ error: 'Invalid shoe size' });
     }
 
-    // Convert the size to Decimal128 for proper comparison in the query
     const minSize = Decimal128.fromString((size - 0.5).toString());
     const maxSize = Decimal128.fromString((size + 0.5).toString());
 
-    // Log the query range
+    // Log the range being queried
     console.log(`Querying for shoe sizes between: ${minSize.toString()} and ${maxSize.toString()}`);
 
     // Query for celebrities with shoe sizes within ±0.5 range
@@ -32,11 +30,12 @@ router.get('/', async (req, res) => {
       }
     }).select('-image');  // Exclude the image field
 
-    console.log("Found celebrities:", celebrities); // Log the result
+    // Log the results returned by the database
+    console.log("Found celebrities:", celebrities);
 
     res.json(celebrities);
   } catch (error) {
-    console.error("Error during celebrity fetch:", error);
+    console.error('Error during celebrity fetch:', error);
     res.status(400).json({ error: 'Error fetching celebrities' });
   }
 });
