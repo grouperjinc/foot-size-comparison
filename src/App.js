@@ -29,24 +29,30 @@ function App() {
       setErrorMessage('Please enter a shoe size.');
       return;
     }
-
+  
     setErrorMessage('');
     try {
-      // Use parseFloat to ensure that the size is treated as a number
       const size = parseFloat(shoeSize);
-
-      // If the shoe size is a decimal, find celebrities with the exact match
-      const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${shoeSize}`);
+  
+      // Log the shoe size before sending the request
+      console.log('Sending shoe size to backend:', size);
+  
+      const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${size}`);
+  
+      // Log the data received from the backend
+      console.log('Data received from backend:', data);
+  
       if (!Array.isArray(data)) {
         throw new Error("Unexpected data format received from API");
       }
-
+  
       if (data.length === 0) {
         setErrorMessage('No celebrities found with this shoe size.');
         setMatchingCelebrities([]);
       } else {
         setMatchingCelebrities(data);
       }
+  
       setSelectedCelebrity(null);
     } catch (error) {
       console.error('Error fetching matching celebrities:', error);
@@ -54,6 +60,7 @@ function App() {
       setMatchingCelebrities([]);
     }
   };
+  
 
   // Search for celebrity by name
   useEffect(() => {
@@ -124,13 +131,14 @@ function App() {
 
         {/* Main Content */}
         <div>
-          <input
-            type="number"
-            placeholder="Enter your shoe size"
-            value={shoeSize}
-            onChange={(e) => setShoeSize(e.target.value)}
-            onKeyDown={handleKeyPress}
-          />
+        <input
+          type="number"
+          step="0.1"  // This allows decimals in the input field
+          placeholder="Enter your shoe size"
+          value={shoeSize}
+          onChange={(e) => setShoeSize(e.target.value)}
+          onKeyDown={handleKeyPress}
+        />
           <button onClick={findCelebritiesBySize}>Find Matches</button>
         </div>
 
