@@ -148,11 +148,11 @@ function App() {
           <div>
             <h2>Matching Celebrities</h2>
             <div className="celebrity-list">
-              {matchingCelebrities.map((celeb) => (
+            {matchingCelebrities.map((celeb) => (
                 <CelebrityCard
                   key={celeb._id}
                   name={celeb.name}
-                  shoeSize={celeb.shoeSize}
+                  shoeSize={celeb.shoeSize}  // This will now be a string or number
                   category={celeb.category}
                 />
               ))}
