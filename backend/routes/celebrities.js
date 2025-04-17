@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
       return res.status(400).json({ error: 'Invalid shoe size' });
     }
 
+    // Convert the size to Decimal128 for proper comparison in the query
     const minSize = Decimal128.fromString((size - 0.5).toString());
     const maxSize = Decimal128.fromString((size + 0.5).toString());
 
@@ -32,6 +33,10 @@ router.get('/', async (req, res) => {
 
     // Log the results returned by the database
     console.log("Found celebrities:", celebrities);
+
+    if (celebrities.length === 0) {
+      console.log("No celebrities found for the given shoe size range.");
+    }
 
     res.json(celebrities);
   } catch (error) {

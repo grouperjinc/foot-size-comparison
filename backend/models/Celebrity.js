@@ -1,20 +1,19 @@
-// backend/models/Celebrity.js
 import mongoose from 'mongoose';
 
+// Define the Celebrity schema
 const celebritySchema = new mongoose.Schema({
-  name: String,
-  shoeSize: { type: Number, index: true }, // Index on shoeSize for faster queries
-  category: String
+  name: { type: String, required: true },  // Name of the celebrity
+  shoeSize:  
+   { type: mongoose.Schema.Types.Decimal128, 
+    required: true, 
+    index: true  // Create an index for shoeSize for faster searches
+  },
+  category: { type: String, required: true },  // Category (e.g., Actor, Musician, etc.)
 });
 
-
+// Create the Celebrity model using the schema
 const Celebrity = mongoose.model('Celebrity', celebritySchema);
 
-export default Celebrity;
-
-/* what I had before serverless
-const Celebrity = mongoose.model('Celebrity', celebritySchema);
-export default Celebrity;
-*/
-
+// Export the model for use in other parts of the app
+export default Celebrity; 
 
