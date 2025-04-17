@@ -1,6 +1,8 @@
+// backend/routes/celebrities.js
 import express from 'express';
 import Celebrity from '../models/Celebrity.js';
 import { Decimal128 } from 'mongodb';
+
 const router = express.Router();
 
 // Get celebrities by shoe size
@@ -8,8 +10,8 @@ router.get('/', async (req, res) => {
   const { shoeSize } = req.query;
 
   try {
-    const size = parseFloat(shoeSize); // Convert to float for range calculation
-    console.log(`Received shoe size: ${shoeSize}, parsed as: ${size}`); // Log received shoe size
+    const size = parseFloat(shoeSize);  // Convert to float for range calculation
+    console.log(`Received shoe size: ${shoeSize}, parsed as: ${size}`); // Log the received shoe size
 
     if (isNaN(size)) {
       return res.status(400).json({ error: 'Invalid shoe size' });
@@ -18,7 +20,7 @@ router.get('/', async (req, res) => {
     const minSize = Decimal128.fromString((size - 0.5).toString());
     const maxSize = Decimal128.fromString((size + 0.5).toString());
 
-    // Log the range that will be queried
+    // Log the range being queried
     console.log(`Querying for shoe sizes between: ${minSize.toString()} and ${maxSize.toString()}`);
 
     const celebrities = await Celebrity.find({
@@ -28,10 +30,10 @@ router.get('/', async (req, res) => {
       }
     }).select('-image');  // Exclude the image field
 
-    // Convert Decimal128 to string or number before sending it to the frontend
+    // Convert Decimal128 to string before sending to the frontend
     const celebritiesWithSize = celebrities.map((celeb) => ({
       ...celeb.toObject(),
-      shoeSize: celeb.shoeSize.toString()  // Convert Decimal128 to string or .toNumber()
+      shoeSize: celeb.shoeSize.toString()  // Convert Decimal128 to string
     }));
 
     console.log("Found celebrities:", celebritiesWithSize);
@@ -42,6 +44,5 @@ router.get('/', async (req, res) => {
     res.status(400).json({ error: 'Error fetching celebrities' });
   }
 });
-
 
 export default router;
