@@ -1,4 +1,3 @@
-// backend/routes/celebrities.js
 import express from 'express';
 import Celebrity from '../models/Celebrity.js';
 import { Decimal128 } from 'mongodb';
@@ -11,7 +10,7 @@ router.get('/', async (req, res) => {
 
   try {
     const size = parseFloat(shoeSize);  // Convert to float for range calculation
-    console.log(`Received shoe size: ${shoeSize}, parsed as: ${size}`); // Log the received shoe size
+    console.log(`Received shoe size: ${shoeSize}, parsed as: ${size}`); // Log received shoe size
 
     if (isNaN(size)) {
       return res.status(400).json({ error: 'Invalid shoe size' });
