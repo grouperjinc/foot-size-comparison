@@ -1,10 +1,11 @@
+// backend/models/Celebrity.js
 import mongoose from 'mongoose';
 
 // Define the Celebrity schema
 const celebritySchema = new mongoose.Schema({
   name: { type: String, required: true },  // Name of the celebrity
-  shoeSize:  
-   { type: mongoose.Schema.Types.Decimal128, 
+  shoeSize: { 
+    type: mongoose.Schema.Types.Decimal128, 
     required: true, 
     index: true  // Create an index for shoeSize for faster searches
   },
@@ -15,5 +16,4 @@ const celebritySchema = new mongoose.Schema({
 const Celebrity = mongoose.model('Celebrity', celebritySchema);
 
 // Export the model for use in other parts of the app
-export default Celebrity; 
-
+export default Celebrity;

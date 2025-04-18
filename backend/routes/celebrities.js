@@ -1,7 +1,7 @@
+// backend/routes/celebrities.js
 import express from 'express';
 import Celebrity from '../models/Celebrity.js';
 import { Decimal128 } from 'mongodb';
-
 const router = express.Router();
 
 // Get celebrities by shoe size
@@ -9,19 +9,21 @@ router.get('/', async (req, res) => {
   const { shoeSize } = req.query;
 
   try {
-    const size = parseFloat(shoeSize);  // Convert to float for range calculation
-    console.log(`Received shoe size: ${shoeSize}, parsed as: ${size}`); // Log received shoe size
+    const size = parseFloat(shoeSize); // Convert to float for range calculation
+    console.log(`Received shoe size: ${shoeSize}, parsed as: ${size}`); // Log the received shoe size
 
     if (isNaN(size)) {
       return res.status(400).json({ error: 'Invalid shoe size' });
     }
 
+    // Create Decimal128 values for the range
     const minSize = Decimal128.fromString((size - 0.5).toString());
     const maxSize = Decimal128.fromString((size + 0.5).toString());
 
     // Log the range being queried
     console.log(`Querying for shoe sizes between: ${minSize.toString()} and ${maxSize.toString()}`);
 
+    // Query for celebrities with shoe sizes within ±0.5 range
     const celebrities = await Celebrity.find({
       shoeSize: {
         $gte: minSize,
@@ -29,17 +31,10 @@ router.get('/', async (req, res) => {
       }
     }).select('-image');  // Exclude the image field
 
-    // Convert the Decimal128 to a string or number before sending to the frontend
-    const celebritiesWithSize = celebrities.map((celeb) => ({
-      ...celeb.toObject(),
-      shoeSize: celeb.shoeSize.toString()  // Convert Decimal128 to string here
-    }));
-    
-    
+    // Log the results returned by the database
+    console.log("Found celebrities with shoe sizes within range:", celebrities);
 
-    console.log("Found celebrities:", celebritiesWithSize);
-
-    res.json(celebritiesWithSize);
+    res.json(celebrities); // Send the celebrities back to the frontend
   } catch (error) {
     console.error('Error during celebrity fetch:', error);
     res.status(400).json({ error: 'Error fetching celebrities' });
