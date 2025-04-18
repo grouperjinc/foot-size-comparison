@@ -29,10 +29,10 @@ router.get('/', async (req, res) => {
       }
     }).select('-image');  // Exclude the image field
 
-    // Convert Decimal128 to string before sending to the frontend
+    // Convert the Decimal128 to a number (or string)
     const celebritiesWithSize = celebrities.map((celeb) => ({
       ...celeb.toObject(),
-      shoeSize: celeb.shoeSize.toString()  // Convert Decimal128 to string
+      shoeSize: celeb.shoeSize.toString()  // Convert Decimal128 to string here
     }));
 
     console.log("Found celebrities:", celebritiesWithSize);
