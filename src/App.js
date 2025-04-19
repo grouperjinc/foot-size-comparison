@@ -29,7 +29,7 @@ function App() {
       setErrorMessage('Please enter a shoe size.');
       return;
     }
-  
+
     const size = parseFloat(shoeSize);  // Convert the input value to a float
 
     if (isNaN(size)) {
@@ -42,21 +42,20 @@ function App() {
     setErrorMessage('');
     try {
       const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${size}`);
-    console.log("Data received from backend:", data);
+      console.log("Data received from backend:", data);
 
-    if (!Array.isArray(data)) {
-      throw new Error("Unexpected data format received from API");
+      if (!Array.isArray(data)) {
+        throw new Error("Unexpected data format received from API");
+      }
+
+      setMatchingCelebrities(data);
+      setSelectedCelebrity(null);
+    } catch (error) {
+      console.error('Error fetching matching celebrities:', error);
+      setErrorMessage('An error occurred while fetching data. Please try again.');
+      setMatchingCelebrities([]);
     }
-
-    setMatchingCelebrities(data);
-    setSelectedCelebrity(null);
-  } catch (error) {
-    console.error('Error fetching matching celebrities:', error);
-    setErrorMessage('An error occurred while fetching data. Please try again.');
-    setMatchingCelebrities([]);
-  }
-};
-  
+  };
 
   // Search for celebrity by name
   useEffect(() => {
@@ -127,14 +126,14 @@ function App() {
 
         {/* Main Content */}
         <div>
-        <input
-          type="text" // Change from number to text
-          step="0.1"  // This allows decimals in the input field
-          placeholder="Enter your shoe size"
-          value={shoeSize}
-          onChange={(e) => setShoeSize(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
+          <input
+            type="text" // Change from number to text
+            step="0.1"  // This allows decimals in the input field
+            placeholder="Enter your shoe size"
+            value={shoeSize}
+            onChange={(e) => setShoeSize(e.target.value)}
+            onKeyDown={handleKeyPress}
+          />
           <button onClick={findCelebritiesBySize}>Find Matches</button>
         </div>
 
@@ -144,7 +143,7 @@ function App() {
           <div>
             <h2>Matching Celebrities</h2>
             <div className="celebrity-list">
-            {matchingCelebrities.map((celeb) => (
+              {matchingCelebrities.map((celeb) => (
                 <CelebrityCard
                   key={celeb._id}
                   name={celeb.name}
