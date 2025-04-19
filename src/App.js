@@ -30,36 +30,32 @@ function App() {
       return;
     }
   
+    const size = parseFloat(shoeSize);  // Convert the input value to a float
+
+    if (isNaN(size)) {
+      setErrorMessage('Invalid shoe size. Please enter a valid number.');
+      return;
+    }
+
+    console.log("Sending shoe size to backend:", size);
+
     setErrorMessage('');
     try {
-      const size = parseFloat(shoeSize);
-  
-      // Log the shoe size before sending the request
-      console.log('Sending shoe size to backend:', size);
-  
       const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${size}`);
-  
-      // Log the data received from the backend
-      console.log('Data received from backend:', data);
-  
-      if (!Array.isArray(data)) {
-        throw new Error("Unexpected data format received from API");
-      }
-  
-      if (data.length === 0) {
-        setErrorMessage('No celebrities found with this shoe size.');
-        setMatchingCelebrities([]);
-      } else {
-        setMatchingCelebrities(data);
-      }
-  
-      setSelectedCelebrity(null);
-    } catch (error) {
-      console.error('Error fetching matching celebrities:', error);
-      setErrorMessage('An error occurred while fetching data. Please try again.');
-      setMatchingCelebrities([]);
+    console.log("Data received from backend:", data);
+
+    if (!Array.isArray(data)) {
+      throw new Error("Unexpected data format received from API");
     }
-  };
+
+    setMatchingCelebrities(data);
+    setSelectedCelebrity(null);
+  } catch (error) {
+    console.error('Error fetching matching celebrities:', error);
+    setErrorMessage('An error occurred while fetching data. Please try again.');
+    setMatchingCelebrities([]);
+  }
+};
   
 
   // Search for celebrity by name
@@ -132,7 +128,7 @@ function App() {
         {/* Main Content */}
         <div>
         <input
-          type="number"
+          type="text" // Change from number to text
           step="0.1"  // This allows decimals in the input field
           placeholder="Enter your shoe size"
           value={shoeSize}
