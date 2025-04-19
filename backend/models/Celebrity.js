@@ -1,4 +1,3 @@
-// backend/models/Celebrity.js
 import mongoose from 'mongoose';
 
 // Define the Celebrity schema

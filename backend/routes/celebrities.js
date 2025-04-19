@@ -1,4 +1,3 @@
-// backend/routes/celebrities.js
 import express from 'express';
 import Celebrity from '../models/Celebrity.js';
 import { Decimal128 } from 'mongodb';
