@@ -31,10 +31,18 @@ router.get('/', async (req, res) => {
       }
     }).select('-image');  // Exclude the image field
 
-    // Log the results returned by the database
-    console.log("Found celebrities with shoe sizes within range:", celebrities);
+    // Convert Decimal128 shoeSize to a plain number (float) for each celebrity
+    const celebritiesWithNumberSize = celebrities.map((celebrity) => {
+      return {
+        ...celebrity.toObject(),
+        shoeSize: parseFloat(celebrity.shoeSize.toString())  // Convert Decimal128 to float
+      };
+    });
 
-    res.json(celebrities); // Send the celebrities back to the frontend
+    // Log the results returned by the database
+    console.log("Found celebrities with shoe sizes within range:", celebritiesWithNumberSize);
+
+    res.json(celebritiesWithNumberSize); // Send the celebrities back to the frontend with the updated shoe size
   } catch (error) {
     console.error('Error during celebrity fetch:', error);
     res.status(400).json({ error: 'Error fetching celebrities' });
