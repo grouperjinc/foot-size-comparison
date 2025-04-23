@@ -2,17 +2,13 @@ import dbConnect from '../lib/dbConnect.js';
 import addSecurityHeaders from '../middleware/securityHeaders.js';
 import rateLimit from '../middleware/rateLimit.js';
 import handleCors from '../middleware/cors.js';
+import { Decimal128 } from 'mongodb';
 
 export default async function handler(req, res) {
   console.log("📡 /api/celebrities called");
 
-  // ✅ Set security headers
   addSecurityHeaders(res);
-
-  // ✅ Handle CORS (optional, but helps with browser-based access)
   if (!handleCors(req, res)) return;
-
-  // ✅ Basic rate-limiting
   if (!rateLimit(req, res)) return;
 
   try {
@@ -24,11 +20,22 @@ export default async function handler(req, res) {
       const { shoeSize } = req.query;
 
       if (shoeSize) {
-        const size = parseInt(shoeSize, 10);
-        const results = await Celebrity.find({ shoeSize: size });
+        const size = parseFloat(shoeSize);
+        if (isNaN(size)) {
+          return res.status(400).json({ error: 'Invalid shoeSize parameter' });
+        }
+
+        const lower = Decimal128.fromString((size - 0.5).toString());
+        const upper = Decimal128.fromString((size + 0.5).toString());
+
+        const results = await Celebrity.find({
+          shoeSize: { $gte: lower, $lte: upper }
+        });
+
         return res.status(200).json(results);
       }
 
+      // Default: return 10 random celebrities
       const results = await Celebrity.aggregate([{ $sample: { size: 10 } }]);
       return res.status(200).json(results);
     }
