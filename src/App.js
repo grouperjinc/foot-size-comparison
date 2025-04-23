@@ -112,7 +112,7 @@ function App() {
   // Accept cookies and store the consent in localStorage
   const acceptCookies = () => {
     localStorage.setItem('cookieConsent', true);
-    setCookieConsent(true); // Update state to hide the cookie consent banner
+    setCookieConsent(true); // Update state to hide the cookie consent banner -important
   };
 
   return (
@@ -200,7 +200,6 @@ function App() {
             />
           </div>
         )}
-
         {/* Cookie Consent Banner */}
         {!cookieConsent && (
           <div id="cookie-consent" className="cookie-consent">
@@ -212,5 +211,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
