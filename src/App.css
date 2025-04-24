@@ -55,7 +55,7 @@ body {
 }
 
 .celebrity-card img {
-  width: 100%;
+  max-width: 120px;
   height: auto;
   object-fit: cover;
   border-radius: 12px;
