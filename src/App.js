@@ -131,30 +131,35 @@ function App() {
         </div>
 
         {/* Main Content */}
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginTop: '1rem' }}>
-          <input
-            type="text"
-            step="0.1"
-            placeholder="Enter your shoe size"
-            value={shoeSize}
-            onChange={(e) => setShoeSize(e.target.value)}
-            onKeyDown={handleKeyPress}
-            style={{ padding: '0.5rem', fontSize: '1rem' }}
-          />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', marginTop: '1rem' }}>
+  {/* Row with input and button */}
+  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+    <input
+      type="text"
+      step="0.1"
+      placeholder="Enter your shoe size"
+      value={shoeSize}
+      onChange={(e) => setShoeSize(e.target.value)}
+      onKeyDown={handleKeyPress}
+      style={{ padding: '0.5rem', fontSize: '1rem' }}
+    />
 
-          <button onClick={findCelebritiesBySize} style={{ padding: '0.5rem 1rem' }}>
-            Find Matches
-          </button>
+    <button onClick={findCelebritiesBySize} style={{ padding: '0.5rem 1rem' }}>
+      Find Matches
+    </button>
+  </div>
 
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.95rem' }}>
-            <input
-              type="checkbox"
-              checked={includeApproximate}
-              onChange={() => setIncludeApproximate(!includeApproximate)}
-            />
-            Include Approximate Matches (±0.5)
-          </label>
-        </div>
+  {/* Centered checkbox below */}
+  <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.95rem' }}>
+    <input
+      type="checkbox"
+      checked={includeApproximate}
+      onChange={() => setIncludeApproximate(!includeApproximate)}
+    />
+    Include Approximate Matches (±0.5)
+  </label>
+</div>
+
 
 
 
