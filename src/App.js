@@ -127,7 +127,15 @@ function App() {
     localStorage.setItem('cookieConsent', true);
     setCookieConsent(true); // Update state to hide the cookie consent banner -important
   };
-
+  // Load Google AdSense script
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      console.error("AdSense push failed:", e);
+    }
+  }, []);
+  
   return (
     <div className="app-wrapper">
       <div className="App">
@@ -204,6 +212,16 @@ function App() {
             </div>
           </div>
         )}
+        {/* AdSense block below results */}
+        <div style={{ margin: '2rem 0' }}>
+          <ins className="adsbygoogle"
+              style={{ display: 'block' }}
+              data-ad-client="ca-pub-7122777258440810"
+              data-ad-slot="YOUR_SLOT_ID"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
+        </div>
+
 
         <hr />
 
@@ -254,12 +272,17 @@ function App() {
         {/* Cookie Consent Banner */}
         {!cookieConsent && (
           <div id="cookie-consent" className="cookie-consent">
-            <p>We use cookies to enhance your browsing experience. By continuing to use this website, you consent to our use of cookies.</p>
+            <p>
+              We use cookies to enhance your browsing experience and to serve personalized ads via Google AdSense.
+              By continuing to use this site, you consent to our use of cookies.
+              <a href="/privacypolicy.html" target="_blank" rel="noopener noreferrer">Learn more</a>.
+            </p>
             <button onClick={acceptCookies}>Got it!</button>
           </div>
         )}
       </div>
     </div>
+    
   );
 }
 export default App;
