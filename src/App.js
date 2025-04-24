@@ -60,6 +60,8 @@ function App() {
       console.error('Error fetching matching celebrities:', error);
       setErrorMessage('An error occurred while fetching data. Please try again.');
       setMatchingCelebrities([]);
+    } finally {
+      setIsLoading(false); // ✅ Always stop loading, success or fail
     }
   };
 
