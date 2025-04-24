@@ -22,26 +22,28 @@ export default async function handler(req, res) {
   if (method === 'GET') {
     try {
       const celeb = await Celebrity.findById(id).lean(); // ✅ Convert to plain JS object
-      console.log('🧪 Raw shoeSize:', celeb.shoeSize);
+  
       if (!celeb) {
         return res.status(404).json({ error: 'Celebrity not found' });
       }
-
-      // ✅ Convert Decimal128 to plain number
-      try {
-        celeb.shoeSize = parseFloat(celeb.shoeSize?.toString?.());
-      } catch {
-        celeb.shoeSize = 0;
+  
+      // ✅ Convert Decimal128 to number (and avoid NaN)
+      if (
+        celeb.shoeSize &&
+        typeof celeb.shoeSize === 'object' &&
+        typeof celeb.shoeSize.toString === 'function'
+      ) {
+        celeb.shoeSize = parseFloat(celeb.shoeSize.toString());
       }
-      
-      console.log("👟 Cleaned celebrity shoeSize:", celeb.shoeSize);
-
+  
+      console.log("🧪 Cleaned shoeSize:", celeb.shoeSize); // for verification
       return res.status(200).json(celeb);
     } catch (err) {
       console.error("❌ Error fetching celebrity by ID:", err);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
-  } else {
+  }
+   else {
     res.setHeader('Allow', ['GET']);
     res.status(405).end(`Method ${method} Not Allowed`);
   }
