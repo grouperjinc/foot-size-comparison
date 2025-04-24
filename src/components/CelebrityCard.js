@@ -1,12 +1,12 @@
 import React from 'react';
 import './CelebrityCard.css';
 
-const CelebrityCard = ({ name, shoeSize, category }) => {
+const CelebrityCard = ({ name, shoeSize, image }) => {
   return (
     <div className="celebrity-card">
-      <div className="celebrity-name">{name}</div>
-      <div className="celebrity-shoe-size">Shoe Size: {shoeSize}</div>
-      <div className="celebrity-category">Category: {category}</div>
+      <img src={image} alt={name} />
+      <h3>{name}</h3>
+      <p>Size: {shoeSize}</p>
     </div>
   );
 };

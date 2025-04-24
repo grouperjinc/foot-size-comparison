@@ -14,7 +14,12 @@ function App() {
   const [includeApproximate, setIncludeApproximate] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [cookieConsent, setCookieConsent] = useState(false); // State for cookie consent
-
+  const categoryImages = {
+    Actor: 'https://res.cloudinary.com/dlratz7ov/image/upload/v1745470676/movie_anvfga.png',
+    Athlete: 'https://res.cloudinary.com/dlratz7ov/image/upload/v1745470677/sport_ha9boz.png',
+    Music: 'https://res.cloudinary.com/dlratz7ov/image/upload/v1745470676/music_k1cjtm.png',
+    Default: 'https://res.cloudinary.com/dlratz7ov/image/upload/v1745471093/placeholder_soon_rlwxdv.png'
+  };
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   // Check if user already accepted cookies
@@ -189,11 +194,12 @@ function App() {
             <div className="celebrity-list">
               {matchingCelebrities.map((celeb) => (
                 <CelebrityCard
-                  key={celeb._id}
-                  name={celeb.name}
-                  shoeSize={celeb.shoeSize}  // This will now be a string or number
-                  category={celeb.category}
-                />
+                key={celeb._id}
+                name={celeb.name}
+                shoeSize={celeb.shoeSize}
+                category={celeb.category}
+                image={categoryImages[celeb.category] || categoryImages.Default}
+/>
               ))}
             </div>
           </div>
@@ -241,7 +247,8 @@ function App() {
               name={selectedCelebrity.name}
               shoeSize={selectedCelebrity.shoeSize}
               category={selectedCelebrity.category}
-            />
+              image={categoryImages[selectedCelebrity.category] || categoryImages.Default}
+            />  
           </div>
         )}
         {/* Cookie Consent Banner */}
