@@ -17,34 +17,38 @@ export default async function handler(req, res) {
     const Celebrity = (await import('../models/Celebrity.js')).default;
 
     if (req.method === 'GET') {
-      const { shoeSize } = req.query;
+      const { shoeSize, exact } = req.query;
 
       let results = [];
-
+      
       if (shoeSize) {
         const size = parseFloat(shoeSize);
         if (isNaN(size)) {
           return res.status(400).json({ error: 'Invalid shoeSize parameter' });
         }
-
-        const lower = Decimal128.fromString((size - 0.5).toString());
-        const upper = Decimal128.fromString((size + 0.5).toString());
-
-        results = await Celebrity.find({
-          shoeSize: { $gte: lower, $lte: upper }
-        }).lean(); // Use lean() for plain JS objects
+      
+        let query = {};
+        if (exact === 'true') {
+          query.shoeSize = Decimal128.fromString(size.toString());
+        } else {
+          const lower = Decimal128.fromString((size - 0.5).toString());
+          const upper = Decimal128.fromString((size + 0.5).toString());
+          query.shoeSize = { $gte: lower, $lte: upper };
+        }
+      
+        results = await Celebrity.find(query).lean(); // ✅ Use outer 'results'
       } else {
-        // Default: return 10 random celebrities
         results = await Celebrity.aggregate([{ $sample: { size: 10 } }]);
       }
-
+      
       // Convert Decimal128 shoeSize to plain number
       const cleanedResults = results.map(celeb => ({
         ...celeb,
         shoeSize: parseFloat(celeb.shoeSize?.toString?.() ?? '0')
       }));
-
+      
       return res.status(200).json(cleanedResults);
+      
     }
 
     res.setHeader('Allow', ['GET']);
