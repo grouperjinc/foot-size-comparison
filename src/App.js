@@ -135,7 +135,7 @@ function App() {
       console.error("AdSense push failed:", e);
     }
   }, []);
-  
+
   return (
     <div className="app-wrapper">
       <div className="App">
@@ -217,7 +217,7 @@ function App() {
           <ins className="adsbygoogle"
               style={{ display: 'block' }}
               data-ad-client="ca-pub-7122777258440810"
-              data-ad-slot="YOUR_SLOT_ID"
+              data-ad-slot="2481840441"
               data-ad-format="auto"
               data-full-width-responsive="true"></ins>
         </div>
@@ -252,6 +252,16 @@ function App() {
               ))}
             </ul>
           )}
+        </div>
+
+        {/* AdSense block under name search */}
+        <div style={{ margin: '1.5rem 0' }}>
+          <ins className="adsbygoogle"
+              style={{ display: 'block' }}
+              data-ad-client="ca-pub-7122777258440810"
+              data-ad-slot="2481840441"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
         </div>
 
         {searchName && !dropdownVisible && nameMatches.length === 0 && !selectedCelebrity && (
