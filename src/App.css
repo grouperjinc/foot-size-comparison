@@ -30,10 +30,12 @@ body {
 
 /* Section to display celebrities */
 .celebrity-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
-  justify-content: center;
+  justify-items: center;
+  align-items: stretch;
+  padding: 1rem 0;
 }
 
 /* Celebrity card styling */
@@ -42,7 +44,8 @@ body {
   border: 1px solid #ddd;
   border-radius: 12px;
   padding: 20px;
-  width: 280px;
+  width: 100%;
+  max-width: 250px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
