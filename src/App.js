@@ -133,25 +133,29 @@ function App() {
         {/* Main Content */}
         <div>
           <input
-            type="text" // Change from number to text
-            step="0.1"  // This allows decimals in the input field
+            type="text"
+            step="0.1"
             placeholder="Enter your shoe size"
-            value={shoeSize} 
+            value={shoeSize}
             onChange={(e) => setShoeSize(e.target.value)}
             onKeyDown={handleKeyPress}
           />
-          <button onClick={findCelebritiesBySize}>Find Matches</button> 
+
+          {/* Wrap button + toggle in a flex container */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '1rem' }}>
+            <button onClick={findCelebritiesBySize}>Find Matches</button>
+
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.95rem' }}>
+              <input
+                type="checkbox"
+                checked={includeApproximate}
+                onChange={() => setIncludeApproximate(!includeApproximate)}
+              />
+              Include Approximate Matches (±0.5)
+            </label>
+          </div>
         </div>
 
-         {/* Checkbox for approximate matches */}
-        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem' }}>
-          <input
-            type="checkbox"
-            checked={includeApproximate}
-            onChange={() => setIncludeApproximate(!includeApproximate)}
-          />
-          Include Approximate Matches (±0.5)
-        </label>
 
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
