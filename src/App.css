@@ -126,6 +126,11 @@ button:hover {
   }
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Media queries for responsive design */
 @media (max-width: 768px) {
   .celebrity-card {
@@ -204,3 +209,4 @@ button:hover {
 .cookie-consent button:hover {
   background-color: #e67e22;
 }
+

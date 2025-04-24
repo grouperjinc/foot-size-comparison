@@ -12,6 +12,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [includeApproximate, setIncludeApproximate] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [cookieConsent, setCookieConsent] = useState(false); // State for cookie consent
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -38,9 +39,8 @@ function App() {
       return;
     }
 
-    console.log("Sending shoe size to backend:", size);
-
     setErrorMessage('');
+    setIsLoading(true); // ⬅️ Start loading
     try {
       const { data } = await axios.get(`${API_BASE_URL}/api/celebrities`, {
         params: {
@@ -144,9 +144,24 @@ function App() {
       style={{ padding: '0.5rem', fontSize: '1rem' }}
     />
 
-    <button onClick={findCelebritiesBySize} style={{ padding: '0.5rem 1rem' }}>
-      Find Matches
-    </button>
+<button
+  onClick={findCelebritiesBySize}
+  style={{ padding: '0.5rem 1rem', minWidth: '120px' }}
+  disabled={isLoading}
+>
+  {isLoading ? (
+    <span className="spinner" style={{
+      display: 'inline-block',
+      width: '1rem',
+      height: '1rem',
+      border: '2px solid #fff',
+      borderTop: '2px solid #333',
+      borderRadius: '50%',
+      animation: 'spin 0.6s linear infinite'
+    }} />
+  ) : 'Find Matches'}
+</button>
+
   </div>
 
   {/* Centered checkbox below */}
