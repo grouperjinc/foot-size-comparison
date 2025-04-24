@@ -11,6 +11,7 @@ function App() {
   const [selectedCelebrity, setSelectedCelebrity] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [includeApproximate, setIncludeApproximate] = useState(true);
   const [cookieConsent, setCookieConsent] = useState(false); // State for cookie consent
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -41,7 +42,12 @@ function App() {
 
     setErrorMessage('');
     try {
-      const { data } = await axios.get(`${API_BASE_URL}/api/celebrities?shoeSize=${size}`);
+      const { data } = await axios.get(`${API_BASE_URL}/api/celebrities`, {
+        params: {
+          shoeSize: size,
+          exact: !includeApproximate  // exact=true when the toggle is OFF
+        }
+      });
       console.log("Data received from backend:", data);
 
       if (!Array.isArray(data)) {
@@ -130,12 +136,23 @@ function App() {
             type="text" // Change from number to text
             step="0.1"  // This allows decimals in the input field
             placeholder="Enter your shoe size"
-            value={shoeSize}
+            value={shoeSize} 
             onChange={(e) => setShoeSize(e.target.value)}
             onKeyDown={handleKeyPress}
           />
-          <button onClick={findCelebritiesBySize}>Find Matches</button>
+          <button onClick={findCelebritiesBySize}>Find Matches</button> 
         </div>
+
+         {/* Checkbox for approximate matches */}
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem' }}>
+          <input
+            type="checkbox"
+            checked={includeApproximate}
+            onChange={() => setIncludeApproximate(!includeApproximate)}
+          />
+          Include Approximate Matches (±0.5)
+        </label>
+
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
