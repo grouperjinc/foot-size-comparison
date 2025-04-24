@@ -28,6 +28,7 @@ export default async function handler(req, res) {
 
       // ✅ Convert Decimal128 to plain number
       celeb.shoeSize = parseFloat(celeb.shoeSize?.toString?.() ?? '0');
+      console.log("👟 Cleaned celebrity shoeSize:", celeb.shoeSize);
 
       return res.status(200).json(celeb);
     } catch (err) {
