@@ -22,14 +22,18 @@ export default async function handler(req, res) {
   if (method === 'GET') {
     try {
       const celeb = await Celebrity.findById(id).lean(); // ✅ Convert to plain JS object
+      console.log('🧪 Raw shoeSize:', celeb.shoeSize);
       if (!celeb) {
         return res.status(404).json({ error: 'Celebrity not found' });
       }
 
       // ✅ Convert Decimal128 to plain number
-      if (celeb.shoeSize && typeof celeb.shoeSize === 'object' && celeb.shoeSize.toString) {
-        celeb.shoeSize = parseFloat(celeb.shoeSize.toString());
+      try {
+        celeb.shoeSize = parseFloat(celeb.shoeSize?.toString?.());
+      } catch {
+        celeb.shoeSize = 0;
       }
+      
       console.log("👟 Cleaned celebrity shoeSize:", celeb.shoeSize);
 
       return res.status(200).json(celeb);
