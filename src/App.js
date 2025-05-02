@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CelebrityCard from './components/CelebrityCard';
+import SizeConversionChart from './components/SizeConversionChart';
 import './App.css';
 
 function App() {
