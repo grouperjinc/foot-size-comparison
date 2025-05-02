@@ -307,7 +307,7 @@ function App() {
   <p style={{ margin: '0.5rem' }}>
     <a href="/about.html" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>About</a> | 
     <a href="/terms.html" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>Terms of Use</a> | 
-    <a href="/privacy.html" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>Privacy Policy</a>
+    <a href="/privacypolicy.html" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>Privacy Policy</a>
   </p>
   <p style={{ marginTop: '0.25rem', color: '#777' }}>© {new Date().getFullYear()} footsizecomparison.com</p>
 </footer>
