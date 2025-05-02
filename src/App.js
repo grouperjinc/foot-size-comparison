@@ -144,9 +144,13 @@ function App() {
         <div className="hero-section">
           <h1>Welcome to the Celebrity Foot Size Comparison</h1>
           <p>Discover which celebrities wear the same shoe size as you!</p>
+          
+
         </div>
 
         {/* Main Content */}
+
+   
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', marginTop: '1rem' }}>
   {/* Row with input and button */}
   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -291,9 +295,31 @@ function App() {
             <button onClick={acceptCookies}>Got it!</button>
           </div>
         )}
+
+<footer style={{
+  marginTop: '2rem',
+  padding: '1rem 0',
+  borderTop: '1px solid #ccc',
+  textAlign: 'center',
+  fontSize: '0.9rem',
+  backgroundColor: '#f5f5f5'
+}}>
+  <p style={{ margin: '0.5rem' }}>
+    <a href="/about.html" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>About</a> | 
+    <a href="/terms.html" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>Terms of Use</a> | 
+    <a href="/privacy.html" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>Privacy Policy</a>
+  </p>
+  <p style={{ marginTop: '0.25rem', color: '#777' }}>© {new Date().getFullYear()} footsizecomparison.com</p>
+</footer>
       </div>
     </div>
     
   );
 }
+const footerLinkStyle = {
+  color: '#008cba',
+  margin: '0 0.5rem',
+  textDecoration: 'none'
+};
+
 export default App;
