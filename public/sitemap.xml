@@ -5,6 +5,14 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://footsizecomparison.com/about.html</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://footsizecomparison.com/terms.html</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://footsizecomparison.com/privacypolicy.html</loc>
     <priority>0.3</priority>
   </url>
