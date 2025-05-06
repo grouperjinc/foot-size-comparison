@@ -121,7 +121,7 @@ function App() {
           <h1>Welcome to the Celebrity Foot Size Comparison</h1>
           <p><strong>footsizecomparison.com</strong> is a fun and interactive website that helps you compare your shoe size with those of celebrities around the world. Whether you're curious if you match LeBron James or Zendaya, this tool lets you explore who shares your size across the entertainment, music, and sports industries.</p>
           <p>With a growing database of verified celebrity shoe sizes, we make it easy to discover patterns, surprises, and even inspiration. You can search by size, name, or category to see which stars match your footprint. Plus, we’re regularly adding new names to keep the comparison fun and fresh.</p>
-          <p>Give it a try — enter your shoe size above and see which famous feet you line up with!</p>
+          <p>Give it a try — enter your shoe size below and see which famous feet you line up with!</p>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', marginTop: '1rem' }}>
