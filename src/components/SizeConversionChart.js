@@ -12,7 +12,6 @@ const SizeConversionChart = () => {
         console.error("AdSense push failed:", e);
       }
 
-      // Auto-scroll to chart
       chartRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [showChart]);
@@ -31,8 +30,12 @@ const SizeConversionChart = () => {
           cursor: 'pointer',
           transition: 'background-color 0.3s'
         }}
-        onMouseOver={(e) => (e.target.style.backgroundColor = showChart ? '#c9302c' : '#0077a3')}
-        onMouseOut={(e) => (e.target.style.backgroundColor = showChart ? '#d9534f' : '#008cba')}
+        onMouseOver={(e) =>
+          (e.target.style.backgroundColor = showChart ? '#c9302c' : '#0077a3')
+        }
+        onMouseOut={(e) =>
+          (e.target.style.backgroundColor = showChart ? '#d9534f' : '#008cba')
+        }
       >
         {showChart ? '❌ Hide Chart' : '📏 View Foot Size Conversion Chart'}
       </button>
@@ -49,21 +52,25 @@ const SizeConversionChart = () => {
           }}
         >
           <div style={{ marginBottom: '1rem' }}>
-            <ins className="adsbygoogle"
+            <ins
+              className="adsbygoogle"
               style={{ display: 'block' }}
               data-ad-client="ca-pub-7122777258440810"
               data-ad-slot="2481840441"
               data-ad-format="auto"
-              data-full-width-responsive="true"></ins>
+              data-full-width-responsive="true"
+            ></ins>
           </div>
 
           <div style={{ overflowX: 'auto' }}>
-            <table style={{
-              width: '100%',
-              borderCollapse: 'collapse',
-              fontSize: '0.95rem',
-              minWidth: '400px'
-            }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                fontSize: '0.95rem',
+                minWidth: '400px',
+              }}
+            >
               <thead>
                 <tr style={{ backgroundColor: '#ddd' }}>
                   <th style={thStyle}>US</th>
@@ -78,11 +85,18 @@ const SizeConversionChart = () => {
                   ['7', '6.5', '40', '25.0'],
                   ['8', '7.5', '41', '26.0'],
                   ['9', '8.5', '42', '27.0'],
-                  ['10', '9.5', '43', '28.0']
+                  ['10', '9.5', '43', '28.0'],
                 ].map((row, index) => (
-                  <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#fff' : '#f1f1f1' }}>
+                  <tr
+                    key={index}
+                    style={{
+                      backgroundColor: index % 2 === 0 ? '#fff' : '#f1f1f1',
+                    }}
+                  >
                     {row.map((cell, i) => (
-                      <td key={i} style={tdStyle}>{cell}</td>
+                      <td key={i} style={tdStyle}>
+                        {cell}
+                      </td>
                     ))}
                   </tr>
                 ))}
@@ -98,13 +112,13 @@ const SizeConversionChart = () => {
 const thStyle = {
   padding: '0.6rem',
   border: '1px solid #ccc',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
 };
 
 const tdStyle = {
   padding: '0.6rem',
   border: '1px solid #ccc',
-  textAlign: 'center'
+  textAlign: 'center',
 };
 
 export default SizeConversionChart;
