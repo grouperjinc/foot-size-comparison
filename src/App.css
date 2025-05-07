@@ -234,3 +234,61 @@ html, body {
 .App > footer {
   margin-top: auto;
 }
+
+/* Card flip effect */
+.celebrity-card {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  color: #333;
+}
+
+.card-back p {
+  font-size: 0.95rem;
+  margin-top: 10px;
+  color: #666;
+}
+
+.tap-to-flip {
+  display: none;
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 6px;
+}
+
+@media (max-width: 768px) {
+  .tap-to-flip {
+    display: block;
+  }
+}

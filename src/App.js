@@ -144,7 +144,14 @@ function App() {
             <h2>Matching Celebrities</h2>
             <div className="celebrity-list">
               {matchingCelebrities.map((celeb) => (
-                <CelebrityCard key={celeb._id} name={celeb.name} shoeSize={celeb.shoeSize} category={celeb.category} image={categoryImages[celeb.category] || categoryImages.Default} />
+                <CelebrityCard key={celeb._id} 
+                               name={celeb.name} 
+                               shoeSize={celeb.shoeSize} 
+                               category={celeb.category} 
+                               image={categoryImages[celeb.category] || categoryImages.Default} 
+                               funFact={celeb.funFact}
+                
+                />
               ))}
             </div>
           </div>
