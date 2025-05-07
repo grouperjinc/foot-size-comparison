@@ -1,4 +1,5 @@
 console.log("🚀 [id] route STARTED");
+
 import dbConnect from '../../lib/dbConnect.js';
 import addSecurityHeaders from '../../middleware/securityHeaders.js';
 import rateLimit from '../../middleware/rateLimit.js';
@@ -12,7 +13,6 @@ export default async function handler(req, res) {
   if (!rateLimit(req, res)) return;
 
   await dbConnect();
-
   const Celebrity = (await import('../../models/Celebrity.js')).default;
 
   const {
@@ -22,13 +22,13 @@ export default async function handler(req, res) {
 
   if (method === 'GET') {
     try {
-      const celeb = await Celebrity.findById(id).lean(); // ✅ Convert to plain JS object
-  
+      const celeb = await Celebrity.findById(id).lean(); // Use lean() for plain object
+
       if (!celeb) {
         return res.status(404).json({ error: 'Celebrity not found' });
       }
-  
-      // ✅ Convert Decimal128 to number (and avoid NaN)
+
+      // Ensure shoeSize is a number
       if (
         celeb.shoeSize &&
         typeof celeb.shoeSize === 'object' &&
@@ -36,16 +36,16 @@ export default async function handler(req, res) {
       ) {
         celeb.shoeSize = parseFloat(celeb.shoeSize.toString());
       }
-  
-      console.log("🧪 Cleaned shoeSize:", celeb.shoeSize); // for verification
+
+      console.log(`✅ Returning ${celeb.name} with size ${celeb.shoeSize}`);
       return res.status(200).json(celeb);
+
     } catch (err) {
       console.error("❌ Error fetching celebrity by ID:", err);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
-  }
-   else {
+  } else {
     res.setHeader('Allow', ['GET']);
-    res.status(405).end(`Method ${method} Not Allowed`);
+    return res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
