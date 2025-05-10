@@ -38,7 +38,14 @@ export default async function handler(req, res) {
       }
 
       console.log(`✅ Returning ${celeb.name} with size ${celeb.shoeSize}`);
-      return res.status(200).json(celeb);
+      return res.status(200).json({
+        _id: celeb._id,
+        name: celeb.name,
+        shoeSize: celeb.shoeSize,
+        image: celeb.image,
+        category: celeb.category,
+        funFact: celeb.funFact || '', // ✅ Add this line explicitly
+      });
 
     } catch (err) {
       console.error("❌ Error fetching celebrity by ID:", err);
