@@ -2,17 +2,17 @@ import mongoose from 'mongoose';
 
 // Define the Celebrity schema
 const celebritySchema = new mongoose.Schema({
-  name: { type: String, required: true },  // Name of the celebrity
+  name: { type: String, required: true },
   shoeSize: { 
     type: mongoose.Schema.Types.Decimal128, 
     required: true, 
-    index: true  // Create an index for shoeSize for faster searches
+    index: true 
   },
-  category: { type: String, required: true },  // Category (e.g., Actor, Musician, etc.)
+  category: { type: String, required: true },
+  funFact: { type: String, default: '' } // ✅ Add this line for the fun fact
 });
 
 // Create the Celebrity model using the schema
 const Celebrity = mongoose.model('Celebrity', celebritySchema);
 
-// Export the model for use in other parts of the app
 export default Celebrity;
