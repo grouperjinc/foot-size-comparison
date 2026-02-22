@@ -30,14 +30,6 @@ function App() {
     if (consent) setCookieConsent(true);
   }, []);
 
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error("AdSense push failed:", e);
-    }
-  }, []);
-
   const findCelebritiesBySize = async () => {
     if (!shoeSize) {
       setErrorMessage('Please enter a shoe size.');
@@ -118,11 +110,75 @@ function App() {
     <div className="app-wrapper">
       <div className="App">
         <div className="hero-section">
-          <h1>Welcome to the Celebrity Foot Size Comparison</h1>
-          <p><strong>footsizecomparison.com</strong> is a fun and interactive website that helps you compare your shoe size with those of celebrities around the world. Whether you're curious if you match LeBron James or Zendaya, this tool lets you explore who shares your size across the entertainment, music, and sports industries.</p>
-          <p>With a growing database of verified celebrity shoe sizes, we make it easy to discover patterns, surprises, and even inspiration. You can search by size, name, or category to see which stars match your footprint. Plus, we’re regularly adding new names to keep the comparison fun and fresh.</p>
-          <p>Give it a try — enter your shoe size below and see which famous feet you line up with!</p>
-        </div>
+  <h1>Celebrity Foot Size Comparison</h1>
+  <p style={{ maxWidth: "900px", margin: "0 auto" }}>
+    Compare your shoe size with celebrities and learn how sizing works across US, UK, EU, and CM systems.
+  </p>
+</div>
+
+<div
+  className="homepage-content"
+  style={{
+    maxWidth: "900px",
+    margin: "0 auto",
+    textAlign: "left",
+    lineHeight: "1.7",
+    padding: "0 10px"
+  }}
+>
+  <h2>About Celebrity Foot Size Comparison</h2>
+  <p>
+    Celebrity Foot Size Comparison is an informational resource and interactive tool
+    designed to help users explore publicly available shoe size data from well-known
+    athletes, actors, musicians, and public figures. Many people are curious whether
+    they share the same shoe size as their favorite celebrities, and this platform
+    organizes that information in a structured and easy-to-browse format.
+  </p>
+
+  <h2>Understanding Shoe Size Systems</h2>
+  <p>
+    Shoe sizing differs across regions and measurement standards. The most commonly
+    used systems include United States (US), United Kingdom (UK), European Union (EU),
+    and centimeter (CM) measurements. A size 10 in US sizing, for example, does not
+    correspond to a size 10 in UK or EU systems.
+  </p>
+  <p>
+    In addition, men’s and women’s sizing scales vary. In many cases, women’s US sizes
+    are approximately 1 to 1.5 sizes larger than their men’s equivalents. Understanding
+    these differences helps users compare sizes more accurately across categories.
+  </p>
+
+  <h2>How Celebrity Shoe Size Information Is Sourced</h2>
+  <p>
+    Shoe size data displayed on this website is gathered from publicly available
+    interviews, media reports, brand disclosures, and other reputable sources.
+    Because footwear sizing can vary by brand, model, and fit preference, some
+    values may be approximate rather than officially confirmed measurements.
+  </p>
+
+  <h2>Why People Compare Celebrity Shoe Sizes</h2>
+  <p>
+    Many users enjoy comparing themselves to professional athletes, entertainers,
+    and cultural figures out of curiosity or interest in sports and fashion.
+    Organizing this information in one searchable database makes it easier to
+    explore patterns, similarities, and differences across various industries.
+  </p>
+
+  <h2>How to Use This Tool</h2>
+  <p>
+    You can enter your shoe size to discover celebrities who share the same size,
+    including approximate matches if desired. The site also allows you to search
+    directly by celebrity name to view available details.
+  </p>
+
+  <h2>Independent and Informational</h2>
+  <p>
+    footsizecomparison.com is an independent informational website created for
+    entertainment and educational purposes. We are not affiliated with or endorsed
+    by any celebrity, brand, or organization mentioned. We continually review
+    and update our listings to improve clarity and overall user experience.
+  </p>
+</div>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', marginTop: '1rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -157,10 +213,6 @@ function App() {
           </div>
         )}
 
-        <div style={{ margin: '2rem 0' }}>
-          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-7122777258440810" data-ad-slot="2481840441" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        </div>
-
         <hr />
 
         <h2>Search for a Celebrity</h2>
@@ -173,10 +225,6 @@ function App() {
               ))}
             </ul>
           )}
-        </div>
-
-        <div style={{ margin: '1.5rem 0' }}>
-          <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-7122777258440810" data-ad-slot="2481840441" data-ad-format="auto" data-full-width-responsive="true"></ins>
         </div>
 
         {searchName && !dropdownVisible && nameMatches.length === 0 && !selectedCelebrity && (
@@ -203,12 +251,21 @@ function App() {
           </div>
         )}
 
-        <footer style={{ marginTop: '2rem', padding: '1rem 0', borderTop: '1px solid #ccc', textAlign: 'center', fontSize: '0.9rem', backgroundColor: '#f5f5f5' }}>
+        <footer
+          style={{
+            marginTop: '2rem',
+            padding: '1rem 0',
+            borderTop: '1px solid #ccc',
+            textAlign: 'center',
+            fontSize: '0.9rem',
+            backgroundColor: '#f5f5f5'
+          }}
+        >
           <p style={{ margin: '0.5rem' }}>
-            <a href="/about.html" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>About</a> |
-            <a href="/terms.html" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>Terms of Use</a> |
-            <a href="/privacypolicy.html" target="_blank" rel="noopener noreferrer" style={footerLinkStyle}>Privacy Policy</a>
-          </p>
+            <a href="/about.html" style={footerLinkStyle}>About</a> |{" "}
+            <a href="/terms.html" style={footerLinkStyle}>Terms of Use</a> |{" "}
+            <a href="/privacypolicy.html" style={footerLinkStyle}>Privacy Policy</a>
+                  </p>
           <p style={{ marginTop: '0.25rem', color: '#777' }}>© {new Date().getFullYear()} footsizecomparison.com</p>
         </footer>
       </div>

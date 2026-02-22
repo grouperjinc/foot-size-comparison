@@ -1,26 +1,16 @@
-/* index.css or App.css */
-html, body, #root {
-    height: 100%;
-    margin: 0;
-  }
-  
-  .app-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    background-color: #f9f9f9;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  .App {
-    max-width: 800px;
-    width: 100%;
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: center;
-  }
-  
+/* ===== Global Base Styles ===== */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* Root container must allow growth */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

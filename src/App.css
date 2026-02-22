@@ -1,45 +1,88 @@
+/* ============================= */
+/* ===== Layout Structure ===== */
+/* ============================= */
 
-/* Global styles */
-body {
-  font-family: 'Open Sans', sans-serif;
-  background-color: #f9f9f9;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* App container for centered layout */
-.App {
-  text-align: center;
-  padding: 20px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Container for the app content */
 .app-wrapper {
-  text-align: center;
+  flex: 1;
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
+/* Main app container */
+.App {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Push footer to bottom */
 .App > footer {
   margin-top: auto;
 }
 
-/* Styling for the logo */
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-  margin-bottom: 30px;
+/* ============================= */
+/* ===== Homepage Content ===== */
+/* ============================= */
+
+.homepage-content h2 {
+  margin-top: 2rem;
 }
 
-/* Section to display celebrities */
+.homepage-content p {
+  font-size: 1.05rem;
+  color: #333;
+}
+
+/* ============================= */
+/* ===== Hero Section ===== */
+/* ============================= */
+
+.hero-section {
+  background-color: #008cba;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+  margin-bottom: 40px;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.hero-section p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.hero-section button {
+  padding: 12px 30px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-section button:hover {
+  background-color: #e67e22;
+}
+
+/* ============================= */
+/* ===== Celebrity Cards ===== */
+/* ============================= */
+
 .celebrity-list {
   display: flex;
   flex-wrap: wrap;
@@ -48,7 +91,6 @@ body {
   padding: 1.5rem 0;
 }
 
-/* Celebrity card styling */
 .celebrity-card {
   width: 250px;
   height: 350px;
@@ -85,7 +127,8 @@ body {
   margin-bottom: 16px;
 }
 
-/* Flip logic */
+/* Flip animation */
+
 .card-inner {
   position: relative;
   width: 100%;
@@ -121,13 +164,15 @@ body {
 
 .card-back p {
   font-size: 0.9rem;
-  color: #333;
   text-align: center;
   padding: 0 10px;
   word-break: break-word;
 }
 
-/* Button style */
+/* ============================= */
+/* ===== Buttons ===== */
+/* ============================= */
+
 button {
   padding: 12px 24px;
   background-color: #008cba;
@@ -144,7 +189,10 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Error message styling */
+/* ============================= */
+/* ===== Errors ===== */
+/* ============================= */
+
 .error-message {
   color: red;
   font-size: 16px;
@@ -152,70 +200,10 @@ button:hover {
   margin-top: 10px;
 }
 
-/* App Header styling */
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+/* ============================= */
+/* ===== Cookie Banner ===== */
+/* ============================= */
 
-/* Link color styling */
-.App-link {
-  color: #61dafb;
-}
-
-/* Keyframe for spinning logo */
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Hero section styling */
-.hero-section {
-  background-color: #008cba;
-  color: white;
-  text-align: center;
-  padding: 80px 20px;
-  margin-bottom: 40px;
-}
-
-.hero-section h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.hero-section p {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-
-.hero-section button {
-  padding: 12px 30px;
-  background-color: #f39c12;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.hero-section button:hover {
-  background-color: #e67e22;
-}
-
-/* Cookie Consent Banner Styling */
 .cookie-consent {
   position: fixed;
   bottom: 0;
@@ -226,11 +214,6 @@ button:hover {
   padding: 15px;
   text-align: center;
   z-index: 1000;
-}
-
-.cookie-consent p {
-  margin: 0;
-  font-size: 14px;
 }
 
 .cookie-consent button {
@@ -247,7 +230,10 @@ button:hover {
   background-color: #e67e22;
 }
 
-/* Tap-to-flip helper */
+/* ============================= */
+/* ===== Mobile ===== */
+/* ============================= */
+
 .tap-to-flip {
   display: none;
   font-size: 0.75rem;
