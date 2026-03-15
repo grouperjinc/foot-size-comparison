@@ -1,0 +1,31 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/backend/node_modules
+backend/node_modules
+
+# monorepo note: let backend manage its own .env & build (you can still list it here if needed)
+/backend/.env
+/backend/.env.local
+
+# testing
+/coverage
+.Foot.psd
+.repertoire.txt
+
+# production
+# Uncomment this if you're not using the build folder for GH Pages or Netlify
+#/build
+
+# misc
+.DS_Store
+.env.local
+.env.development
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+backend/ 
