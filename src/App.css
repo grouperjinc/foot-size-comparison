@@ -1,0 +1,252 @@
+/* ============================= */
+/* ===== Layout Structure ===== */
+/* ============================= */
+
+.app-wrapper {
+  flex: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main app container */
+.App {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Push footer to bottom */
+.App > footer {
+  margin-top: auto;
+}
+
+/* ============================= */
+/* ===== Homepage Content ===== */
+/* ============================= */
+
+.homepage-content h2 {
+  margin-top: 2rem;
+}
+
+.homepage-content p {
+  font-size: 1.05rem;
+  color: #333;
+}
+
+/* ============================= */
+/* ===== Hero Section ===== */
+/* ============================= */
+
+.hero-section {
+  background-color: #008cba;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+  margin-bottom: 40px;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.hero-section p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.hero-section button {
+  padding: 12px 30px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-section button:hover {
+  background-color: #e67e22;
+}
+
+/* ============================= */
+/* ===== Celebrity Cards ===== */
+/* ============================= */
+
+.celebrity-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 1.5rem 0;
+}
+
+.celebrity-card {
+  width: 250px;
+  height: 350px;
+  perspective: 1000px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.celebrity-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.celebrity-card img {
+  max-width: 120px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.celebrity-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.celebrity-card p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+/* Flip animation */
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  color: #333;
+}
+
+.card-back p {
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0 10px;
+  word-break: break-word;
+}
+
+/* ============================= */
+/* ===== Buttons ===== */
+/* ============================= */
+
+button {
+  padding: 12px 24px;
+  background-color: #008cba;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #005f73;
+  transform: scale(1.05);
+}
+
+/* ============================= */
+/* ===== Errors ===== */
+/* ============================= */
+
+.error-message {
+  color: red;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* ============================= */
+/* ===== Cookie Banner ===== */
+/* ============================= */
+
+.cookie-consent {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.cookie-consent button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cookie-consent button:hover {
+  background-color: #e67e22;
+}
+
+/* ============================= */
+/* ===== Mobile ===== */
+/* ============================= */
+
+.tap-to-flip {
+  display: none;
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 6px;
+}
+
+@media (max-width: 768px) {
+  .celebrity-card {
+    width: 90%;
+  }
+
+  .tap-to-flip {
+    display: block;
+  }
+}
