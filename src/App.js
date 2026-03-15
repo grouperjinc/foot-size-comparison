@@ -265,6 +265,7 @@ function App() {
             <a href="/about.html" style={footerLinkStyle}>About</a> |{" "}
             <a href="/terms.html" style={footerLinkStyle}>Terms of Use</a> |{" "}
             <a href="/privacypolicy.html" style={footerLinkStyle}>Privacy Policy</a>
+            <a href="/celebrity-shoe-size-chart/" style={footerLinkStyle}>Celebrity Shoe Size Chart</a>
                   </p>
           <p style={{ marginTop: '0.25rem', color: '#777' }}>© {new Date().getFullYear()} footsizecomparison.com</p>
         </footer>
