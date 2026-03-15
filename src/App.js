@@ -79,7 +79,13 @@ function App() {
 
   return (
     <div className="app-wrapper">
-      <div className="App">
+       <div className="App">
+
+    <nav className="site-nav">
+      <a href="/">Home</a> |
+      <a href="/celebrity-shoe-size-chart/">Celebrity Shoe Size Chart</a> |
+      <a href="/about.html">About</a>
+    </nav>
         <h1>Find Celebrities with Your US Shoe Size</h1>
 
         <div>
